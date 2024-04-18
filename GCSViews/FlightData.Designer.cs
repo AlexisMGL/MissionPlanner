@@ -553,19 +553,19 @@ namespace MissionPlanner.GCSViews
             // tabControlactions
             // 
             this.tabControlactions.ContextMenuStrip = this.contextMenuStripactionstab;
-            this.tabControlactions.Controls.Add(this.tabQuick);
+            // this.tabControlactions.Controls.Add(this.tabQuick);
             this.tabControlactions.Controls.Add(this.tabActions);
             this.tabControlactions.Controls.Add(this.tabPagemessages);
             this.tabControlactions.Controls.Add(this.tabActionsSimple);
-            this.tabControlactions.Controls.Add(this.tabPagePreFlight);
-            this.tabControlactions.Controls.Add(this.tabGauges);
-            this.tabControlactions.Controls.Add(this.tabTransponder);
-            this.tabControlactions.Controls.Add(this.tabStatus);
-            this.tabControlactions.Controls.Add(this.tabServo);
-            this.tabControlactions.Controls.Add(this.tabAuxFunction);
-            this.tabControlactions.Controls.Add(this.tabScripts);
-            this.tabControlactions.Controls.Add(this.tabPayload);
-            this.tabControlactions.Controls.Add(this.tabTLogs);
+            // this.tabControlactions.Controls.Add(this.tabPagePreFlight);
+            // this.tabControlactions.Controls.Add(this.tabGauges);
+            // this.tabControlactions.Controls.Add(this.tabTransponder);
+            // this.tabControlactions.Controls.Add(this.tabStatus);
+            // this.tabControlactions.Controls.Add(this.tabServo);
+            // this.tabControlactions.Controls.Add(this.tabAuxFunction);
+            // this.tabControlactions.Controls.Add(this.tabScripts);
+            // this.tabControlactions.Controls.Add(this.tabPayload);
+            // this.tabControlactions.Controls.Add(this.tabTLogs);
             this.tabControlactions.Controls.Add(this.tablogbrowse);
             resources.ApplyResources(this.tabControlactions, "tabControlactions");
             this.tabControlactions.Name = "tabControlactions";
@@ -718,6 +718,7 @@ namespace MissionPlanner.GCSViews
             // tabActions
             // 
             this.tabActions.Controls.Add(this.tableLayoutPanel1);
+            this.tabActions.BackColor = System.Drawing.Color.White;
             resources.ApplyResources(this.tabActions, "tabActions");
             this.tabActions.Name = "tabActions";
             this.tabActions.UseVisualStyleBackColor = true;
@@ -725,30 +726,41 @@ namespace MissionPlanner.GCSViews
             // tableLayoutPanel1
             // 
             resources.ApplyResources(this.tableLayoutPanel1, "tableLayoutPanel1");
-            this.tableLayoutPanel1.Controls.Add(this.BUT_SendMSG, 2, 4);
-            this.tableLayoutPanel1.Controls.Add(this.BUT_abortland, 4, 4);
-            this.tableLayoutPanel1.Controls.Add(this.modifyandSetLoiterRad, 4, 2);
-            this.tableLayoutPanel1.Controls.Add(this.BUT_clear_track, 4, 3);
+            // this.tableLayoutPanel1.Controls.Add(this.BUT_SendMSG, 2, 4);
+            // this.tableLayoutPanel1.Controls.Add(this.BUT_abortland, 4, 4);
+            // this.tableLayoutPanel1.Controls.Add(this.modifyandSetLoiterRad, 4, 2);
+            // this.tableLayoutPanel1.Controls.Add(this.BUT_clear_track, 4, 3);
             this.tableLayoutPanel1.Controls.Add(this.CMB_action, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.BUTactiondo, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.BUT_resumemis, 3, 4);
-            this.tableLayoutPanel1.Controls.Add(this.modifyandSetAlt, 4, 1);
-            this.tableLayoutPanel1.Controls.Add(this.modifyandSetSpeed, 4, 0);
+            this.tableLayoutPanel1.Controls.Add(this.BUT_resumemis, 1, 4);
+            // this.tableLayoutPanel1.Controls.Add(this.modifyandSetAlt, 4, 1);
+            // this.tableLayoutPanel1.Controls.Add(this.modifyandSetSpeed, 4, 0);
             this.tableLayoutPanel1.Controls.Add(this.CMB_setwp, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.BUT_ARM, 3, 3);
+            this.tableLayoutPanel1.Controls.Add(this.BUT_ARM, 0, 4);
             this.tableLayoutPanel1.Controls.Add(this.BUT_mountmode, 1, 3);
-            this.tableLayoutPanel1.Controls.Add(this.BUT_joystick, 2, 3);
-            this.tableLayoutPanel1.Controls.Add(this.BUT_RAWSensor, 3, 2);
-            this.tableLayoutPanel1.Controls.Add(this.BUT_Homealt, 3, 0);
-            this.tableLayoutPanel1.Controls.Add(this.BUTrestartmission, 3, 1);
+            // this.tableLayoutPanel1.Controls.Add(this.BUT_joystick, 2, 3);
+            // this.tableLayoutPanel1.Controls.Add(this.BUT_RAWSensor, 3, 2);
+            // this.tableLayoutPanel1.Controls.Add(this.BUT_Homealt, 3, 0);
+            // this.tableLayoutPanel1.Controls.Add(this.BUTrestartmission, 3, 1);
             this.tableLayoutPanel1.Controls.Add(this.CMB_mountmode, 0, 3);
-            this.tableLayoutPanel1.Controls.Add(this.BUT_quickrtl, 2, 2);
-            this.tableLayoutPanel1.Controls.Add(this.BUT_quickmanual, 2, 1);
+            // this.tableLayoutPanel1.Controls.Add(this.BUT_quickrtl, 2, 2);
+            // this.tableLayoutPanel1.Controls.Add(this.BUT_quickmanual, 2, 1);
             this.tableLayoutPanel1.Controls.Add(this.BUT_setwp, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.CMB_modes, 0, 2);
-            this.tableLayoutPanel1.Controls.Add(this.BUT_quickauto, 2, 0);
+            // this.tableLayoutPanel1.Controls.Add(this.BUT_quickauto, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.BUT_setmode, 1, 2);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.SetColumnSpan(this.CMB_action, 2);
+            this.tableLayoutPanel1.SetColumnSpan(this.BUTactiondo, 2);
+            this.tableLayoutPanel1.SetColumnSpan(this.BUT_resumemis, 2);
+            this.tableLayoutPanel1.SetColumnSpan(this.CMB_setwp, 2);
+            this.tableLayoutPanel1.SetColumnSpan(this.BUT_ARM, 2);
+            this.tableLayoutPanel1.SetColumnSpan(this.BUT_mountmode, 2);
+            this.tableLayoutPanel1.SetColumnSpan(this.BUT_setmode, 2);
+            this.tableLayoutPanel1.SetColumnSpan(this.CMB_mountmode, 2);
+            this.tableLayoutPanel1.SetColumnSpan(this.BUT_setwp, 2);
+            this.tableLayoutPanel1.SetColumnSpan(this.CMB_modes, 2);
+            this.tableLayoutPanel1.SetColumnSpan(this.BUT_setmode, 2);
             // 
             // BUT_SendMSG
             // 

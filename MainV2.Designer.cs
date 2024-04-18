@@ -71,8 +71,8 @@ namespace MissionPlanner
             this.MenuFlightPlanner,
             this.MenuInitConfig,
             this.MenuConfigTune,
-            this.MenuSimulation,
-            this.MenuHelp,
+            // this.MenuSimulation,
+            // this.MenuHelp,
             this.MenuConnect,
             this.toolStripConnectionControl,
             this.MenuArduPilot});
@@ -201,7 +201,7 @@ namespace MissionPlanner
             this.MenuArduPilot.Image = global::MissionPlanner.Properties.Resources._0d92fed790a3a70170e61a86db103f399a595c70;
             this.MenuArduPilot.Margin = new System.Windows.Forms.Padding(0);
             this.MenuArduPilot.Name = "MenuArduPilot";
-            this.MenuArduPilot.Click += new System.EventHandler(this.MenuArduPilot_Click);
+            // this.MenuArduPilot.Click += new System.EventHandler(this.MenuArduPilot_Click);
             // 
             // menu
             // 
