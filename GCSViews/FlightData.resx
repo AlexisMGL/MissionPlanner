@@ -598,7 +598,7 @@
     <value>True</value>
   </data>
   <data name="tableLayoutPanel1.ColumnCount" type="System.Int32, mscorlib">
-    <value>5</value>
+    <value>11</value>
   </data>
   <data name="BUT_SendMSG.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
@@ -1093,7 +1093,7 @@
     <value>14</value>
   </data>
   <data name="BUTrestartmission.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
+    <value>Bottom</value>
   </data>
   <data name="BUTrestartmission.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -1108,7 +1108,7 @@
     <value>63</value>
   </data>
   <data name="BUTrestartmission.Text" xml:space="preserve">
-    <value>Restart Mission</value>
+    <value>Parachute</value>
   </data>
   <data name="BUTrestartmission.ToolTip" xml:space="preserve">
     <value>Restarts the mission from the beginning</value>
@@ -1124,6 +1124,9 @@
   </data>
   <data name="&gt;&gt;BUTrestartmission.ZOrder" xml:space="preserve">
     <value>15</value>
+  </data>
+  <data name="BUTrestartmission.BackColor" type="System.Drawing.Color, System.Drawing">
+    <value>255, 0, 0</value> 
   </data>
   <data name="CMB_mountmode.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
@@ -1348,10 +1351,10 @@
     <value>0, 0</value>
   </data>
   <data name="tableLayoutPanel1.RowCount" type="System.Int32, mscorlib">
-    <value>5</value>
+    <value>12</value>
   </data>
   <data name="tableLayoutPanel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>287, 181</value>
+    <value>287, 230</value>
   </data>
   <data name="tableLayoutPanel1.TabIndex" type="System.Int32, mscorlib">
     <value>78</value>
@@ -4736,7 +4739,7 @@
     <value>3, 3</value>
   </data>
   <data name="BUT_DFMavlink.Size" type="System.Drawing.Size, System.Drawing">
-    <value>110, 38</value>
+    <value>220, 38</value>
   </data>
   <data name="BUT_DFMavlink.TabIndex" type="System.Int32, mscorlib">
     <value>11</value>
@@ -4790,7 +4793,7 @@
     <value>119, 3</value>
   </data>
   <data name="BUT_logbrowse.Size" type="System.Drawing.Size, System.Drawing">
-    <value>87, 38</value>
+    <value>220, 38</value>
   </data>
   <data name="BUT_logbrowse.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>
@@ -4844,7 +4847,7 @@
     <value>119, 47</value>
   </data>
   <data name="but_bintolog.Size" type="System.Drawing.Size, System.Drawing">
-    <value>87, 38</value>
+    <value>220, 38</value>
   </data>
   <data name="but_bintolog.TabIndex" type="System.Int32, mscorlib">
     <value>9</value>

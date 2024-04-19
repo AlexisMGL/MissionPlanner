@@ -200,7 +200,7 @@ namespace MissionPlanner
                 return;
             }
 
-            name = "Ground Control AerialMetric";
+            name = "GCAM";
 
             try
             {

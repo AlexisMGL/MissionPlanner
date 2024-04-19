@@ -6711,6 +6711,11 @@ Mission Planner waits for 2 valid heartbeat packets before connecting");
             generatePacket(MAVLINK_MSG_ID.UAVIONIX_ADSB_OUT_CONTROL, ctrl);
         }
 
+        public void doCommand(MAV_CMD dO_PARACHUTE)
+        {
+            throw new NotImplementedException();
+        }
+
         private class NoUIReporter : IProgressReporterDialogue
         {
             private static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);

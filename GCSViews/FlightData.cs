@@ -335,9 +335,26 @@ namespace MissionPlanner.GCSViews
 
             CMB_action.DataSource = Enum.GetNames(typeof(actions));
 
-            CMB_modes.DataSource = ArduPilot.Common.getModesList(MainV2.comPort.MAV.cs.firmware);
+            // Sauvegarder la valeur actuelle sélectionnée
+            string current_value = CMB_modes.Text;
+
+            // Récupérer la liste complète des modes de vol
+            List<KeyValuePair<int, string>> allModes = ArduPilot.Common.getModesList(MainV2.comPort.MAV.cs.firmware);
+
+            List<KeyValuePair<int, string>> filteredModes = allModes
+                .Where(mode => mode.Key == 10 || mode.Key == 21 || mode.Key == 0 || mode.Key == 7 || mode.Key == 11 || mode.Key == 17 || mode.Key == 19 || mode.Key == 20 || mode.Key == 21)
+                .ToList();
+
+            // Définir la source de données pour CMB_modes sur la liste filtrée
+            CMB_modes.DataSource = filteredModes;
             CMB_modes.ValueMember = "Key";
             CMB_modes.DisplayMember = "Value";
+
+            // Restaurer la valeur précédemment sélectionnée
+            CMB_modes.Text = current_value;
+            //CMB_modes.DataSource = ArduPilot.Common.getModesList(MainV2.comPort.MAV.cs.firmware);
+            //CMB_modes.ValueMember = "Key";
+            //CMB_modes.DisplayMember = "Value";
 
             //default to auto
             CMB_modes.Text = "Auto";
@@ -1742,18 +1759,29 @@ namespace MissionPlanner.GCSViews
 
         private void BUTrestartmission_Click(object sender, EventArgs e)
         {
-            try
-            {
-                ((Control) sender).Enabled = false;
+            // Afficher une boîte de dialogue de confirmation
+            DialogResult result = MessageBox.Show("Voulez-vous vraiment déclencher le parachute ?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
-                MainV2.comPort.setWPCurrent(MainV2.comPort.MAV.sysid, MainV2.comPort.MAV.compid, 0); // set nav to
-            }
-            catch
+            // Vérifier la réponse de l'utilisateur
+            if (result == DialogResult.Yes)
             {
-                CustomMessageBox.Show(Strings.CommandFailed, Strings.ERROR);
-            }
+                // ID du canal de servo pour le déclenchement du parachute (à remplacer par votre valeur)
+                int parachuteServoChannel = 13;
 
-            ((Control) sender).Enabled = true;
+                // Angle de déclenchement du servo (à remplacer par votre valeur)
+                int parachuteTriggerAngle = 180;
+
+                // Envoyer une commande MAVLink pour définir la position du servo
+                MainV2.comPort.doCommand(
+                    MAVLink.MAV_CMD.DO_SET_SERVO,
+                    parachuteServoChannel,   // Numéro de canal de servo
+                    parachuteTriggerAngle,   // Angle de déclenchement du servo
+                    0,                       // Non utilisé
+                    0,                       // Non utilisé
+                    0,                       // Non utilisé
+                    0,                       // Non utilisé
+                    0);                      // Non utilisé
+            }
         }
 
         void cam_camimage(Image camimage)
@@ -2391,10 +2419,22 @@ namespace MissionPlanner.GCSViews
 
         private void CMB_modes_Click(object sender, EventArgs e)
         {
+            // Sauvegarder la valeur actuelle sélectionnée
             string current_value = CMB_modes.Text;
-            CMB_modes.DataSource = ArduPilot.Common.getModesList(MainV2.comPort.MAV.cs.firmware);
+
+            // Récupérer la liste complète des modes de vol
+            List<KeyValuePair<int, string>> allModes = ArduPilot.Common.getModesList(MainV2.comPort.MAV.cs.firmware);
+
+            List<KeyValuePair<int, string>> filteredModes = allModes
+                .Where(mode => mode.Key == 10 || mode.Key == 21 || mode.Key == 0 || mode.Key == 7 || mode.Key == 11 || mode.Key == 17 || mode.Key == 19 || mode.Key == 20 || mode.Key == 21)
+                .ToList();
+
+            // Définir la source de données pour CMB_modes sur la liste filtrée
+            CMB_modes.DataSource = filteredModes;
             CMB_modes.ValueMember = "Key";
             CMB_modes.DisplayMember = "Value";
+
+            // Restaurer la valeur précédemment sélectionnée
             CMB_modes.Text = current_value;
         }
 

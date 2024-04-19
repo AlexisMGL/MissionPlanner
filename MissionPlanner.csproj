@@ -7,7 +7,7 @@
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <ProjectGuid>{A2E22272-95FE-47B6-B050-9AE7E2055BF5}</ProjectGuid>
     <ApplicationIcon>mpdesktop.ico</ApplicationIcon>
-    <OutputType>Exe</OutputType>
+    <OutputType>WinExe</OutputType>
     <StartupObject>MissionPlanner.Program</StartupObject>
     <Authors>Michael Oborne</Authors>
     <Version>1.3.62.1</Version>
@@ -16,7 +16,6 @@
     <Product>Mission Planner</Product>
     <Description>Mission Planner ground control station for ardupilot</Description>
     <Copyright>Copyright © Michael Oborne 2010-2018</Copyright>
-    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <TargetFrameworkProfile />
     <ProjectTypeGuids>{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
@@ -64,6 +63,7 @@
   <PropertyGroup>
     <AssemblyName>GCAM</AssemblyName>
   </PropertyGroup>
+  <PropertyGroup />
   <ItemGroup>
     <Compile Remove="APMPlannerXplanes\**" />
     <Compile Remove="plugins\**" />
@@ -260,7 +260,57 @@
     <EmbeddedResource Include="GCSViews\ConfigurationView\ConfigOptional.uk.resx">
       <DependentUpon>ConfigOptional.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="GCSViews\ConfigurationView\ConfigPlanner.ar.resx">
+      <DependentUpon>ConfigPlanner.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GCSViews\ConfigurationView\ConfigPlanner.az-Latn-AZ.resx">
+      <DependentUpon>ConfigPlanner.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GCSViews\ConfigurationView\ConfigPlanner.de-DE.resx">
+      <DependentUpon>ConfigPlanner.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GCSViews\ConfigurationView\ConfigPlanner.fr.resx">
+      <DependentUpon>ConfigPlanner.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GCSViews\ConfigurationView\ConfigPlanner.id-ID.resx">
+      <DependentUpon>ConfigPlanner.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GCSViews\ConfigurationView\ConfigPlanner.it-IT.resx">
+      <DependentUpon>ConfigPlanner.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GCSViews\ConfigurationView\ConfigPlanner.ja-JP.resx">
+      <DependentUpon>ConfigPlanner.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GCSViews\ConfigurationView\ConfigPlanner.ko-KR.resx">
+      <DependentUpon>ConfigPlanner.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GCSViews\ConfigurationView\ConfigPlanner.pt.resx">
+      <DependentUpon>ConfigPlanner.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GCSViews\ConfigurationView\ConfigPlanner.resx">
+      <DependentUpon>ConfigPlanner.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GCSViews\ConfigurationView\ConfigPlanner.ru-KZ.resx">
+      <DependentUpon>ConfigPlanner.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GCSViews\ConfigurationView\ConfigPlanner.tr.resx">
+      <DependentUpon>ConfigPlanner.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GCSViews\ConfigurationView\ConfigPlanner.uk.resx">
+      <DependentUpon>ConfigPlanner.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GCSViews\ConfigurationView\ConfigPlanner.zh-Hans.resx">
+      <DependentUpon>ConfigPlanner.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GCSViews\ConfigurationView\ConfigPlanner.zh-Hant.resx">
+      <DependentUpon>ConfigPlanner.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GCSViews\ConfigurationView\ConfigPlanner.zh-TW.resx">
       <DependentUpon>ConfigPlanner.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GCSViews\ConfigurationView\ConfigRadioInput.uk.resx">
@@ -861,6 +911,12 @@
     </Compile>
     <Compile Include="GCSViews\ConfigurationView\ConfigParamLoading.Designer.cs">
       <DependentUpon>ConfigParamLoading.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GCSViews\ConfigurationView\ConfigPlanner.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GCSViews\ConfigurationView\ConfigPlanner.Designer.cs">
+      <DependentUpon>ConfigPlanner.cs</DependentUpon>
     </Compile>
     <Compile Include="GCSViews\ConfigurationView\ConfigSecure.cs">
       <SubType>UserControl</SubType>
@@ -1506,9 +1562,6 @@
     <Compile Include="GCSViews\ConfigurationView\ConfigOptional.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="GCSViews\ConfigurationView\ConfigPlanner.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
     <Compile Include="GCSViews\ConfigurationView\ConfigPlannerAdv.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -1844,9 +1897,6 @@
     </Compile>
     <Compile Include="GCSViews\ConfigurationView\ConfigOptional.Designer.cs">
       <DependentUpon>ConfigOptional.cs</DependentUpon>
-    </Compile>
-    <Compile Include="GCSViews\ConfigurationView\ConfigPlanner.Designer.cs">
-      <DependentUpon>ConfigPlanner.cs</DependentUpon>
     </Compile>
     <Compile Include="GCSViews\ConfigurationView\ConfigPlannerAdv.Designer.cs">
       <DependentUpon>ConfigPlannerAdv.cs</DependentUpon>
@@ -2616,12 +2666,14 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GCSViews\FlightData.de-DE.resx">
       <DependentUpon>FlightData.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="GCSViews\FlightData.es-ES.resx">
       <DependentUpon>FlightData.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GCSViews\FlightData.fr.resx">
       <DependentUpon>FlightData.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="GCSViews\FlightData.id-ID.resx">
       <DependentUpon>FlightData.cs</DependentUpon>
@@ -3396,6 +3448,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GCSViews\ConfigurationView\ConfigFirmware.resx">
       <DependentUpon>ConfigFirmware.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="GCSViews\ConfigurationView\ConfigFirmware.ar.resx">
       <DependentUpon>ConfigFirmware.cs</DependentUpon>
@@ -4193,56 +4246,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GCSViews\ConfigurationView\ConfigOptional.zh-Hans.resx">
       <DependentUpon>ConfigOptional.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GCSViews\ConfigurationView\ConfigPlanner.resx">
-      <DependentUpon>ConfigPlanner.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GCSViews\ConfigurationView\ConfigPlanner.ar.resx">
-      <DependentUpon>ConfigPlanner.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GCSViews\ConfigurationView\ConfigPlanner.az-Latn-AZ.resx">
-      <DependentUpon>ConfigPlanner.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GCSViews\ConfigurationView\ConfigPlanner.de-DE.resx">
-      <DependentUpon>ConfigPlanner.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GCSViews\ConfigurationView\ConfigPlanner.fr.resx">
-      <DependentUpon>ConfigPlanner.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GCSViews\ConfigurationView\ConfigPlanner.id-ID.resx">
-      <DependentUpon>ConfigPlanner.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GCSViews\ConfigurationView\ConfigPlanner.it-IT.resx">
-      <DependentUpon>ConfigPlanner.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GCSViews\ConfigurationView\ConfigPlanner.ja-JP.resx">
-      <DependentUpon>ConfigPlanner.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GCSViews\ConfigurationView\ConfigPlanner.ko-KR.resx">
-      <DependentUpon>ConfigPlanner.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GCSViews\ConfigurationView\ConfigPlanner.pt.resx">
-      <DependentUpon>ConfigPlanner.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GCSViews\ConfigurationView\ConfigPlanner.ru-KZ.resx">
-      <DependentUpon>ConfigPlanner.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GCSViews\ConfigurationView\ConfigPlanner.tr.resx">
-      <DependentUpon>ConfigPlanner.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GCSViews\ConfigurationView\ConfigPlanner.zh-Hans.resx">
-      <DependentUpon>ConfigPlanner.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GCSViews\ConfigurationView\ConfigPlanner.zh-Hant.resx">
-      <DependentUpon>ConfigPlanner.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GCSViews\ConfigurationView\ConfigPlanner.zh-TW.resx">
-      <DependentUpon>ConfigPlanner.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GCSViews\ConfigurationView\ConfigRadioInput.resx">
       <DependentUpon>ConfigRadioInput.cs</DependentUpon>

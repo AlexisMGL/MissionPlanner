@@ -272,13 +272,13 @@ namespace MissionPlanner.GCSViews.ConfigurationView
             if (temp.url2560.ToLower().Contains("AR2".ToLower()) ||
                 temp.url2560.ToLower().Contains("apm1/APMRover".ToLower()))
             {
-                pictureBoxRover.Text = temp.name;
-                pictureBoxRover.Tag = temp;
+                pictureBoxRover.Text = "Load AerialMetric Firmware";
+                pictureBoxRover.Tag = "Load AerialMetric Firmware";
             }
             else if (temp.url2560.ToLower().Contains("AP-".ToLower()) ||
                      temp.url2560.ToLower().Contains("apm1/ArduPlane".ToLower()))
             {
-                pictureBoxAPM.Text = temp.name;
+                pictureBoxAPM.Text = "";
                 pictureBoxAPM.Tag = temp;
             }
             else if (temp.url2560.ToLower().Contains("ac2-quad-".ToLower()) ||
@@ -328,8 +328,8 @@ namespace MissionPlanner.GCSViews.ConfigurationView
                      temp.name.ToLower().Contains("arducopter octa quad") ||
                      temp.desc.ToLower().Contains("arducopter octa quad"))
             {
-                pictureBoxOctaQuad.Text = temp.name += " Octa Quad";
-                pictureBoxOctaQuad.Tag = temp;
+                pictureBoxOctaQuad.Text = "Load ArduPilot Firmware";
+                pictureBoxOctaQuad.Tag = "Load ArduPilot Firmware";
             }
             else if (temp.url2560.ToLower().Contains("ac2-octa-".ToLower()) ||
                      temp.url2560.ToLower().Contains("-octa/ArduCopter".ToLower()) ||
@@ -357,8 +357,8 @@ namespace MissionPlanner.GCSViews.ConfigurationView
             {
                 pictureBoxOcta.Text = temp.name + " Octa";
                 pictureBoxOcta.Tag = temp;
-                pictureBoxOctaQuad.Text = temp.name + " Octa Quad";
-                pictureBoxOctaQuad.Tag = temp;
+                pictureBoxOctaQuad.Text = "Load ArduPilot Firmware";
+                pictureBoxOctaQuad.Tag = "Load ArduPilot Firmware";
                 pictureBoxHeli.Text = temp.name + " heli";
                 pictureBoxHeli.Tag = temp;
                 pictureBoxY6.Text = temp.name + " Y6";
@@ -373,8 +373,8 @@ namespace MissionPlanner.GCSViews.ConfigurationView
             else if (temp.urlpx4v2.ToLower().Contains("rover") ||
                      temp.urlfmuv2.ToLower().Contains("rover"))
             {
-                pictureBoxRover.Text = temp.name;
-                pictureBoxRover.Tag = temp;
+                pictureBoxRover.Text = "Load AerialMetric Firmware";
+                pictureBoxRover.Tag = "Load AerialMetric Firmware";
             }
             else if (temp.urlpx4v2.ToLower().Contains("plane") ||
                      temp.urlfmuv2.ToLower().Contains("plane"))

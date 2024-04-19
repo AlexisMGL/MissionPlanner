@@ -46,7 +46,7 @@
             this.label1.Size = new System.Drawing.Size(13, 17);
             this.label1.TabIndex = 0;
             this.label1.Tag = "custom";
-            this.label1.Text = " Ground Control AerialMetric";
+            this.label1.Text = " ";
             this.label1.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // TXT_version
