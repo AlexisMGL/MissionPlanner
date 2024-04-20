@@ -205,6 +205,7 @@ namespace MissionPlanner.GCSViews
             this.distanceBar1 = new MissionPlanner.Controls.DistanceBar();
             this.windDir1 = new MissionPlanner.Controls.WindDir();
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
+            this.comboBoxMapType = new System.Windows.Forms.ComboBox(); //Add combomap 
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -2440,6 +2441,14 @@ namespace MissionPlanner.GCSViews
             resources.ApplyResources(this.addPoiToolStripMenuItem, "addPoiToolStripMenuItem");
             this.addPoiToolStripMenuItem.Click += new System.EventHandler(this.addPoiToolStripMenuItem_Click);
             // 
+            // comboBoxMapType
+            // 
+            this.comboBoxMapType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxMapType.FormattingEnabled = true;
+            resources.ApplyResources(this.comboBoxMapType, "comboBoxMapType");
+            this.comboBoxMapType.Name = "comboBoxMapType";
+            this.toolTip1.SetToolTip(this.comboBoxMapType, resources.GetString("comboBoxMapType.ToolTip"));
+            // 
             // deleteToolStripMenuItem
             // 
             this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
@@ -2615,6 +2624,7 @@ namespace MissionPlanner.GCSViews
             this.gMapControl1.MinZoom = 0;
             this.gMapControl1.MouseWheelZoomType = GMap.NET.MouseWheelZoomType.MousePositionWithoutCenter;
             this.gMapControl1.Name = "gMapControl1";
+            //this.gMapControl1.MapProvider = GMap.NET.MapProviders.GoogleTerrainMapProvider.Instance; // Correction de la ligne pour changer la vue
             this.gMapControl1.NegativeMode = false;
             this.gMapControl1.PolygonsEnabled = true;
             this.gMapControl1.RetryLoadTile = 0;
@@ -2661,7 +2671,22 @@ namespace MissionPlanner.GCSViews
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.CHK_autopan);
             this.panel1.Controls.Add(this.CB_tuning);
+            this.panel1.Controls.Add(this.comboBoxMapType);
             this.panel1.Name = "panel1";
+
+            // Créez un nouveau panneau pour contenir le comboBoxMapType
+            Panel panel2 = new Panel();
+            panel2.Dock = DockStyle.Right;
+            panel2.Width = 150; // Ajustez la largeur du panneau selon vos besoins
+
+            // Ajoutez le comboBoxMapType au nouveau panneau
+            panel2.Controls.Add(this.comboBoxMapType);
+
+            // Déplacez les autres contrôles dans le panel1 vers la gauche
+            this.panel1.Controls.Remove(this.comboBoxMapType);
+
+            // Ajoutez le nouveau panneau à droite du panel1
+            this.panel1.Controls.Add(panel2);
             // 
             // coords1
             // 
@@ -2967,6 +2992,7 @@ namespace MissionPlanner.GCSViews
         private Controls.MyButton but_dflogtokml;
         private Controls.MyButton BUT_DFMavlink;
         public System.Windows.Forms.TabPage tabPagemessages;
+        public ComboBox comboBoxMapType;
         private System.Windows.Forms.TextBox txt_messagebox;
         private System.Windows.Forms.Timer Messagetabtimer;
         public System.Windows.Forms.TabPage tabActionsSimple;

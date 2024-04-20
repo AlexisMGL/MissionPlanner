@@ -404,8 +404,8 @@ namespace MissionPlanner.Log
             this.Load += new System.EventHandler(this.LogBrowse_Load);
             this.Resize += new System.EventHandler(this.LogBrowse_Resize);
             this.contextMenuStrip1.ResumeLayout(false);
-            this.splitContainerZgGrid.Panel1.ResumeLayout(false);
-            this.splitContainerZgGrid.Panel2.ResumeLayout(false);
+            this.splitContainerZgGrid.Panel1.ResumeLayout(true);
+            this.splitContainerZgGrid.Panel2.ResumeLayout(true);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerZgGrid)).EndInit();
             this.splitContainerZgGrid.ResumeLayout(false);
             this.splitContainerZgMap.Panel1.ResumeLayout(false);
