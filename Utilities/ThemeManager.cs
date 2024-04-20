@@ -65,7 +65,7 @@ namespace MissionPlanner.Utilities
             terminalTheming = true;
             strThemeName = "BurntKermit.mpsystheme";
 
-            colors.Add("Background", Color.FromArgb(71, 76, 102), "BGColor");						// This changes the colour of the main menu background
+            colors.Add("Background", Color.FromArgb(50, 106, 138), "BGColor");						// This changes the colour of the main menu background
             colors.Add("Control Background", Color.SteelBlue, "ControlBGColor");		// This changes the colour of the sub menu backgrounds
             colors.Add("Text", Color.White, "TextColor");										// This changes the colour of text
             colors.Add("TextBox Background", Color.SteelBlue, "BGColorTextBox");		// This changes the colour of the background of textboxes
