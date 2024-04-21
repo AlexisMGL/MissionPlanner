@@ -51,7 +51,7 @@ namespace MissionPlanner.GCSViews.ConfigurationView
             // Disable all ImageLabels
             foreach (Control c in this.Controls)
             {
-                if (c is ImageLabel)
+                if (c is ImageLabel && c != pictureBoxRover)
                 {
                     c.Enabled = false;
                 }
