@@ -65,20 +65,20 @@ namespace MissionPlanner.Utilities
             terminalTheming = true;
             strThemeName = "BurntKermit.mpsystheme";
 
-            colors.Add("Background", Color.FromArgb(50, 106, 138), "BGColor");						// This changes the colour of the main menu background
-            colors.Add("Control Background", Color.SteelBlue, "ControlBGColor");		// This changes the colour of the sub menu backgrounds
+            colors.Add("Background", Color.FromArgb(20, 20, 20), "BGColor");						// This changes the colour of the main menu background
+            colors.Add("Control Background", Color.FromArgb(20, 20, 20), "ControlBGColor");		// This changes the colour of the sub menu backgrounds
             colors.Add("Text", Color.White, "TextColor");										// This changes the colour of text
-            colors.Add("TextBox Background", Color.SteelBlue, "BGColorTextBox");		// This changes the colour of the background of textboxes
+            colors.Add("TextBox Background", Color.DarkSlateGray, "BGColorTextBox");		// This changes the colour of the background of textboxes
             colors.Add("Button Text", Color.White, "ButtonTextColor");				// This changes the colour of button text
             colors.Add("Button Background top", Color.DarkGray, "ButBG");								// This changes the colour of button backgrounds (Top)
-            colors.Add("Button Background bottom", Color.Black, "ButBGBot");						// This changes the colour of button backgrounds (Bot)
+            colors.Add("Button Background bottom", Color.RoyalBlue, "ButBGBot");						// This changes the colour of button backgrounds (Bot)
             colors.Add("ProgressBar Top", Color.FromArgb(102, 139, 26), "ProgressBarColorTop");	// These three variables change the colours of progress bars
             colors.Add("ProgressBar Bottom", Color.FromArgb(124, 164, 40), "ProgressBarColorBot");
             colors.Add("ProgressBar Outline", Color.FromArgb(150, 174, 112), "ProgressBarOutlineColor");
             colors.Add("BannerColor1", Color.Black, "BannerColor1");			// These two variables change the colours of banners such as "planner" umder configuration
-            colors.Add("BannerColor2", Color.SteelBlue, "BannerColor2");
+            colors.Add("BannerColor2", Color.DarkSlateGray, "BannerColor2");
             colors.Add("Disabled Button", Color.DarkGray, "ColorNotEnabled");		// This changes the background color of buttons when not enabled
-            colors.Add("Button Mouseover", Color.Black, "ColorMouseOver");			// This changes the background color of buttons when the mouse is hovering over a button
+            colors.Add("Button Mouseover", Color.RoyalBlue, "ColorMouseOver");			// This changes the background color of buttons when the mouse is hovering over a button
             colors.Add("Button Mousedown", Color.Black, "ColorMouseDown");			// This changes the background color of buttons when the mouse is clicked down on a button
             colors.Add("CurrentPPM Background", Color.Green, "CurrentPPMBackground");					// This changes the background colour of the current PPM setting in the flight modes tab
             colors.Add("Graph Chart Fill", Color.White, "ZedGraphChartFill"); 	// These three variables change the fill colours of Zed Graphs

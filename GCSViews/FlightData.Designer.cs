@@ -1,4 +1,6 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Windows.Forms;
+using System.Drawing;
 
 namespace MissionPlanner.GCSViews
 {
@@ -73,6 +75,7 @@ namespace MissionPlanner.GCSViews
             this.BUT_setmode = new MissionPlanner.Controls.MyButton();
             this.tabPagemessages = new System.Windows.Forms.TabPage();
             this.txt_messagebox = new System.Windows.Forms.TextBox();
+            this.txt_messagebox2 = new System.Windows.Forms.TextBox();
             this.tabActionsSimple = new System.Windows.Forms.TabPage();
             this.myButton1 = new MissionPlanner.Controls.MyButton();
             this.myButton2 = new MissionPlanner.Controls.MyButton();
@@ -554,7 +557,7 @@ namespace MissionPlanner.GCSViews
             // tabControlactions
             // 
             this.tabControlactions.ContextMenuStrip = this.contextMenuStripactionstab;
-            // this.tabControlactions.Controls.Add(this.tabQuick);
+            this.tabControlactions.Controls.Add(this.tabQuick);
             this.tabControlactions.Controls.Add(this.tabActions);
             this.tabControlactions.Controls.Add(this.tabPagemessages);
             // this.tabControlactions.Controls.Add(this.tabActionsSimple);
@@ -1070,6 +1073,11 @@ namespace MissionPlanner.GCSViews
             // 
             resources.ApplyResources(this.txt_messagebox, "txt_messagebox");
             this.txt_messagebox.Name = "txt_messagebox";
+            // 
+            // txt_messagebox2
+            // 
+            resources.ApplyResources(this.txt_messagebox2, "txt_messagebox2");
+            this.txt_messagebox2.Name = "txt_messagebox2";
             // 
             // tabActionsSimple
             // 
@@ -2380,6 +2388,7 @@ namespace MissionPlanner.GCSViews
             this.splitContainer1.Panel2.Controls.Add(this.lbl_sats);
             this.splitContainer1.Panel2.Controls.Add(this.gMapControl1);
             this.splitContainer1.Panel2.Controls.Add(this.TRK_zoom);
+
             // 
             // zg1
             // 
@@ -2649,6 +2658,41 @@ namespace MissionPlanner.GCSViews
             // Définir le niveau de zoom initial
             gMapControl1.Zoom = initialZoom;
 
+            // Création du panneau pour afficher le texte
+            Panel panelTexte = new Panel();
+            panelTexte.BackColor = Color.LightGray;
+            panelTexte.Size = new Size(200, 300);
+            panelTexte.Location = new Point(gMapControl1.Width - panelTexte.Width, gMapControl1.Height - panelTexte.Height);
+            panelTexte.BorderStyle = BorderStyle.FixedSingle;
+
+            // Création de la TextBox pour le texte
+            TextBox txt_messagebox2 = new TextBox();
+            txt_messagebox2.Multiline = true;
+            txt_messagebox2.ScrollBars = ScrollBars.Vertical;
+            txt_messagebox2.Size = new Size(panelTexte.Width - 10, panelTexte.Height - 10);
+            txt_messagebox2.Location = new Point(5, 20);
+            txt_messagebox2.Text = "Ton texte ici...";
+            panelTexte.Controls.Add(txt_messagebox2);
+            panelTexte.AutoSize = false;
+
+            // Création du bouton pour réduire le panneau
+            Button btnReduire = new Button();
+            btnReduire.Text = "-";
+            btnReduire.Size = new Size(20, 20);
+            btnReduire.Location = new Point(panelTexte.Width - btnReduire.Width, 0);
+            btnReduire.Click += (sender, e) =>
+            {
+                panelTexte.Height = panelTexte.Height == 20 ? 300 : 20; // Change la hauteur entre 20 et 100
+                txt_messagebox2.Visible = panelTexte.Height == 20 ? false : true; // Cache la TextBox quand le panneau est réduit
+            };
+            gMapControl1.Resize += (sender, e) =>
+            {
+                panelTexte.Location = new Point(gMapControl1.Width - panelTexte.Width, gMapControl1.Height - panelTexte.Height);
+            };
+            panelTexte.Controls.Add(btnReduire);
+
+            // Ajout du panneau à la fenêtre principale
+            gMapControl1.Controls.Add(panelTexte);
             // 
             // TRK_zoom
             // 
@@ -2868,7 +2912,7 @@ namespace MissionPlanner.GCSViews
 
         }
 
-  
+
 
         private System.Windows.Forms.BindingSource bindingSource1;
         private System.Windows.Forms.Timer ZedGraphTimer;
@@ -2928,6 +2972,7 @@ namespace MissionPlanner.GCSViews
         private System.Windows.Forms.ToolStripMenuItem flightPlannerToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem userItemsToolStripMenuItem;
         //private Crom.Controls.Docking.DockContainer dockContainer1;
+        private bool fenetreWarningReduite = false;
         private Controls.MyButton BUT_ARM;
         private Controls.ModifyandSet modifyandSetAlt;
         private Controls.ModifyandSet modifyandSetSpeed;
@@ -2994,6 +3039,7 @@ namespace MissionPlanner.GCSViews
         public System.Windows.Forms.TabPage tabPagemessages;
         public ComboBox comboBoxMapType;
         private System.Windows.Forms.TextBox txt_messagebox;
+        private System.Windows.Forms.TextBox txt_messagebox2;
         private System.Windows.Forms.Timer Messagetabtimer;
         public System.Windows.Forms.TabPage tabActionsSimple;
         private Controls.MyButton myButton1;

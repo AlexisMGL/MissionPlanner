@@ -35,6 +35,7 @@ using UnauthorizedAccessException = System.UnauthorizedAccessException;
 using GMap.NET.MapProviders;
 using System.Text.RegularExpressions;
 
+
 // written by michael oborne
 
 namespace MissionPlanner.GCSViews
@@ -4235,14 +4236,20 @@ namespace MissionPlanner.GCSViews
             if (messagecount != messagetime.toUnixTime())
             {
                 try
-                {
+                {   
                     StringBuilder message = new StringBuilder();
+                    MAVLink.MAV_SEVERITY maxSeverity = MAVLink.MAV_SEVERITY.INFO;
                     MainV2.comPort.MAV.cs.messages.ForEach(x =>
                     {
                         message.Insert(0, x.Item1 + " : " + x.Item2 + "\r\n");
+                        if (maxSeverity < MainV2.comPort.MAV.cs.messageHighSeverity)
+                            maxSeverity = MainV2.comPort.MAV.cs.messageHighSeverity;
                     });
                     txt_messagebox.Text = message.ToString();
-
+                    if (maxSeverity <= MAVLink.MAV_SEVERITY.ERROR)
+                        txt_messagebox2.Text = message.ToString();
+                    else if (maxSeverity <= MAVLink.MAV_SEVERITY.WARNING)
+                        txt_messagebox2.Text = message.ToString();
                     messagecount = messagetime.toUnixTime();
                 }
                 catch (Exception ex)
@@ -5272,6 +5279,8 @@ namespace MissionPlanner.GCSViews
         {
             txt_messagebox.Select(txt_messagebox.Text.Length, 0);
             txt_messagebox.ScrollToCaret();
+            txt_messagebox2.Select(txt_messagebox.Text.Length, 0);
+            txt_messagebox2.ScrollToCaret();
         }
 
         private void updateBindingSource()
@@ -5367,6 +5376,44 @@ namespace MissionPlanner.GCSViews
                 log.Error(ex);
                 Tracking.AddException(ex);
             }
+            foreach (Control control in tableLayoutPanelQuick.Controls)
+            {
+
+                QuickView quickView = control as QuickView;
+                quickView.ForeColor = Color.White;
+                quickView.numberColor = Color.White;
+                quickView.numberColorBackup = Color.White;
+                if (quickView != null)
+                {
+                    // Vérifie si la case est sur la colonne de gauche
+                    if (tableLayoutPanelQuick.GetColumn(quickView) == 0)
+                    {
+                        // Ne rien faire pour les cases sur la colonne de gauche
+                        quickView.BackColor = Color.Green;
+                    }
+                    else
+                    {
+                        // Colorie les autres cases en vert
+                        quickView.BackColor = Color.Green;
+                    }
+
+                    // Vérifie si la case est en haut à droite et si la valeur dépasse 5
+                    if (tableLayoutPanelQuick.GetRow(quickView) == 0 && tableLayoutPanelQuick.GetColumn(quickView) == 0)
+                    {
+                        float value;
+                        value = MainV2.comPort.MAV.cs.airspeed;
+                        if (value > 5 && value < 10)
+                        {
+                            quickView.BackColor = Color.OrangeRed;
+                        }
+                        if (value > 10)
+                        {
+                            quickView.BackColor = Color.Red;
+                        }
+                    }
+                }
+            }
+
         }
 
         // to prevent cross thread calls while in a draw and exception
@@ -6285,6 +6332,8 @@ namespace MissionPlanner.GCSViews
                 XPDRConnect_btn.Text = "Connect to Transponder";
             }
         }
+
+
 
         private void showIconsToolStripMenuItem_Click(object sender, EventArgs e)
         {
