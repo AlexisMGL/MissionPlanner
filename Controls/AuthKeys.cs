@@ -134,19 +134,22 @@ namespace MissionPlanner.Controls
 
         private void timer1_Tick(object sender, EventArgs e)
         {
+
+            //  TRAITER PLUS TARD
+
             var name = "None/Unknown";
-            var key = MainV2.comPort.MAV.signingKey;
-            if (key != null)
-            {
-                foreach (var authKey in MAVAuthKeys.Keys)
-                {
-                    if (authKey.Value.Key.ByteArraysEqual(key))
-                    {
-                        name = authKey.Key;
-                        break;
-                    }
-                }
-            }
+            //var key = MainV2.comPort.MAV.signingKey;
+            //if (key != null)
+            //{
+            //    foreach (var authKey in MAVAuthKeys.Keys)
+            //    {
+            //        if (authKey.Value.Key.ByteArraysEqual(key))
+            //        {
+            //            name = authKey.Key;
+            //            break;
+            //        }
+            //    }
+            //}
             
             lbl_sgnpkts.Text = "Using Key: " + name + ", Signed Packets: " + MainV2.comPort.Mavlink2Signed.ToString();
         }
