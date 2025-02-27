@@ -15,6 +15,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Runtime.CompilerServices;
 
+[assembly: InternalsVisibleTo("GCSAM")]
 [assembly: InternalsVisibleTo("MissionPlanner")]
 [assembly: InternalsVisibleTo("MissionPlannerLib")]
 
