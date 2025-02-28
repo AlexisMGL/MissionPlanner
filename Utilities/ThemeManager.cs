@@ -94,6 +94,24 @@ namespace MissionPlanner.Utilities
             colors.Add("HUD Sky top", Color.Blue, "HudSkyTop");
             colors.Add("HUD Sky bottom", Color.LightBlue, "HudSkyBot");
 
+            // MD add
+            colors.Add("Background", Color.FromArgb(20, 20, 20), "BGColor");						// This changes the colour of the main menu background
+            colors.Add("Control Background", Color.FromArgb(20, 20, 20), "ControlBGColor");     // This changes the colour of the sub menu backgrounds
+            colors.Add("TextBox Background", Color.DarkSlateGray, "BGColorTextBox");		// This changes the colour of the background of textboxes
+            colors.Add("Button Text", Color.White, "ButtonTextColor");				// This changes the colour of button text
+            colors.Add("Button Background top", Color.DarkGray, "ButBG");								// This changes the colour of button backgrounds (Top)
+            colors.Add("Button Background bottom", Color.RoyalBlue, "ButBGBot");                        // This changes the colour of button backgrounds (Bot)
+            colors.Add("BannerColor1", Color.Black, "BannerColor1");			// These two variables change the colours of banners such as "planner" umder configuration
+            colors.Add("BannerColor2", Color.DarkSlateGray, "BannerColor2");
+            colors.Add("Disabled Button", Color.DarkGray, "ColorNotEnabled");		// This changes the background color of buttons when not enabled
+            colors.Add("Button Mouseover", Color.RoyalBlue, "ColorMouseOver");			// This changes the background color of buttons when the mouse is hovering over a button
+            colors.Add("Button Mousedown", Color.Black, "ColorMouseDown");			// This changes the background color of buttons when the mouse is clicked down on a button
+            colors.Add("Graph Chart Fill", Color.FromArgb(20, 20, 20), "ZedGraphChartFill");    // These three variables change the fill colours of Zed Graphs
+            colors.Add("ProgressBar Top", Color.FromArgb(176, 196, 222), "ProgressBarColorTop");	// These three variables change the colours of progress bars
+            colors.Add("ProgressBar Bottom", Color.FromArgb(65, 105, 225), "ProgressBarColorBot");
+            colors.Add("ProgressBar Outline", Color.FromArgb(25, 25, 112), "ProgressBarOutlineColor");
+            // end
+
         }
 
         public void SetTheme()
@@ -268,6 +286,8 @@ namespace MissionPlanner.Utilities
                 ThemeManager.thmColor = ThemeManager.ReadFromXmlFile<ThemeColorTable>(themeFileToLoad);
                 if (ThemeManager.thmColor != null)
                     ThemeManager.thmColor.strThemeName = strThemeName;
+                    ThemeManager.thmColor = new ThemeColorTable(); //Init colortable
+                    ThemeManager.thmColor.InitColors();
 
             }
             catch
