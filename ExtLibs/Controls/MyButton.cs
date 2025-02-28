@@ -67,28 +67,6 @@ namespace MissionPlanner.Controls
             this.Font = new System.Drawing.Font(this.Font, FontStyle.Bold);
         }
 
-        public void CustomColors()
-        {
-            // Définition des couleurs via les propriétés pour s'assurer que Invalidate() est appelé
-            this.BGGradTop = Color.DarkRed;
-            this.BGGradBot = Color.Red;
-            this.TextColor = Color.White;
-            this.Outline = Color.White;
-            this.ColorNotEnabled = Color.Gray;
-            this.ColorMouseOver = Color.DarkRed;
-            this.ColorMouseDown = Color.Red;
-
-            // Modifier la couleur de fond et la police
-            this.BackColor = Color.Red;
-            this.ForeColor = Color.White;
-            this.Font = new Font(this.Font.FontFamily, this.Font.Size, FontStyle.Bold);
-
-            // Forcer la mise à jour de l'affichage
-            this.Refresh();
-            this.Invalidate();
-            this.Update();
-        }
-
         protected override void OnPaint(PaintEventArgs pevent)
         {
             //base.OnPaint(pevent);
