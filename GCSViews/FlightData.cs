@@ -6168,6 +6168,9 @@ namespace MissionPlanner.GCSViews
                 //if the tab detached wi have to update it
                 if (tabQuickDetached) MainV2.comPort.MAV.cs.UpdateCurrentSettings(bindingSourceQuickTab.UpdateDataSource(MainV2.comPort.MAV.cs));
 
+                this.textBoxSN.Text = "SN " + MainV2.comPort.MAV.sysid.ToString("D3");
+                this.textBoxSN2.Text = "SN " + MainV2.comPort.MAV.sysid.ToString("D3");
+
                 lastscreenupdate = DateTime.UtcNow;
             }
             catch (Exception ex)
