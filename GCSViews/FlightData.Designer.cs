@@ -626,7 +626,7 @@ namespace MissionPlanner.GCSViews
             // tabControlactions
             // 
             this.tabControlactions.ContextMenuStrip = this.contextMenuStripactionstab;
-            this.tabControlactions.Controls.Add(this.tabQuick);
+            //this.tabControlactions.Controls.Add(this.tabQuick);
             this.tabControlactions.Controls.Add(this.tabActions);
             this.tabControlactions.Controls.Add(this.tabGroundActions);
             this.tabControlactions.Controls.Add(this.tabPagemessages);
@@ -650,7 +650,7 @@ namespace MissionPlanner.GCSViews
             // tabQuick
             // 
             resources.ApplyResources(this.tabQuick, "tabQuick");
-            this.tabQuick.Controls.Add(this.tableLayoutPanelQuick);
+            //this.tabQuick.Controls.Add(this.tableLayoutPanelQuick);
             this.tabQuick.Name = "tabQuick";
             this.tabQuick.UseVisualStyleBackColor = true;
             this.tabQuick.Resize += new System.EventHandler(this.tabQuick_Resize);
@@ -2504,9 +2504,29 @@ namespace MissionPlanner.GCSViews
             // tableMap
             // 
             resources.ApplyResources(this.tableMap, "tableMap");
-            this.tableMap.Controls.Add(this.splitContainer1, 0, 0);
-            this.tableMap.Controls.Add(this.panel1, 0, 1);
-            this.tableMap.Name = "tableMap";
+            //this.tableMap.Controls.Add(this.splitContainer1, 0, 0);
+            //this.tableMap.Controls.Add(this.panel1, 0, 1);
+            // Définir le nombre de lignes et vider les contrôles/précédentes définitions de RowStyles
+            this.tableMap.RowCount = 3;
+            this.tableMap.Controls.Clear();
+            this.tableMap.RowStyles.Clear();
+
+            // Calculer la nouvelle hauteur désirée (ici, la moitié de la hauteur actuelle du tableLayoutPanelQuick)
+            int newHeight = tableLayoutPanelQuick.Height / 2;
+
+            // Première ligne : hauteur fixe
+            this.tableMap.RowStyles.Add(new RowStyle(SizeType.Absolute, newHeight));
+
+            // Deuxième ligne : occupe tout l'espace restant (la carte)
+            this.tableMap.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+
+            // Troisième ligne : auto-dimensionnée (les autres contrôles)
+            this.tableMap.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+
+            // Ajouter les contrôles dans les bonnes lignes
+            this.tableMap.Controls.Add(this.tableLayoutPanelQuick, 0, 0);
+            this.tableMap.Controls.Add(this.splitContainer1, 0, 1);
+            this.tableMap.Controls.Add(this.panel1, 0, 2);
             // 
             // splitContainer1
             // 
