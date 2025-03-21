@@ -157,14 +157,14 @@ namespace MissionPlanner.Utilities
                         {
                             var lat = Double.Parse(dfItem.items[index], CultureInfo.InvariantCulture);
                             if (lat != 0)
-                                dfItem.items[index] =(lat + random).ToString(CultureInfo.InvariantCulture);
+                                dfItem.items[index] =(lat + random + 1).ToString(CultureInfo.InvariantCulture);
                         }
 
                         if (index2 != -1)
                         {
                             var lon = Double.Parse(dfItem.items[index2], CultureInfo.InvariantCulture);
                             if (lon != 0)
-                                dfItem.items[index2] =(lon + random).ToString(CultureInfo.InvariantCulture);
+                                dfItem.items[index2] =(lon + random + 99).ToString(CultureInfo.InvariantCulture);
                         }
 
                         var str = String.Join(",", dfItem.items) + "\r\n";
