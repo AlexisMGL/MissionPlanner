@@ -3672,6 +3672,8 @@ namespace MissionPlanner.GCSViews
         private System.Windows.Forms.CheckBox Autostream;
         private System.Windows.Forms.CheckBox Rack;
         private Form actionForm;
+        private bool is_cruising = false;
+        private static DateTime lastBeepTime = DateTime.MinValue;
         //end
     }
 }

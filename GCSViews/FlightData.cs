@@ -6165,11 +6165,242 @@ namespace MissionPlanner.GCSViews
                     MainV2.comPort.MAV.cs.UpdateCurrentSettings(
                         bindingSourceHud.UpdateDataSource(MainV2.comPort.MAV.cs));
                 }
-                //if the tab detached wi have to update it
-                if (tabQuickDetached) MainV2.comPort.MAV.cs.UpdateCurrentSettings(bindingSourceQuickTab.UpdateDataSource(MainV2.comPort.MAV.cs));
+                //AM 
+                MainV2.comPort.MAV.cs.UpdateCurrentSettings(bindingSourceQuickTab.UpdateDataSource(MainV2.comPort.MAV.cs));
 
                 this.textBoxSN.Text = "SN " + MainV2.comPort.MAV.sysid.ToString("D3");
                 this.textBoxSN2.Text = "SN " + MainV2.comPort.MAV.sysid.ToString("D3");
+
+                if (MainV2.comPort.MAV.cs.ter_curalt > 30 && MainV2.comPort.MAV.cs.DistToHome > 500)
+                {
+                    is_cruising = true;
+                }
+                else
+                {
+                    is_cruising = false;
+                }
+
+                foreach (Control control in tableLayoutPanelQuick.Controls)
+                {
+                    if (control is QuickView quickView)
+                    {
+                        // Configuration générale
+                        quickView.ForeColor = Color.White;
+                        quickView.numberColor = Color.White;
+                        quickView.numberColorBackup = Color.White;
+
+                        if (quickView.Tag != null)
+                        {
+                            string tag = quickView.Tag.ToString();
+                            float value = 0;
+                            // On conserve is_cruising pour certains tests
+                            switch (tag)
+                            {
+                                case "airspeed":
+                                    value = MainV2.comPort.MAV.cs.airspeed;
+                                    quickView.desc = "AS";
+                                    if (!is_cruising)
+                                        quickView.BackColor = Color.FromArgb(20, 20, 20);
+                                    else if (value < 18.8)
+                                        quickView.BackColor = Color.DarkRed;
+                                    else if (value < 19.8)
+                                        quickView.BackColor = Color.Orange;
+                                    else
+                                        quickView.BackColor = Color.Green;
+                                    break;
+                                case "press_abs":
+                                    value = MainV2.comPort.MAV.cs.airspeed;
+                                    {
+                                        float speed1 = MainV2.comPort.MAV.cs.press_abs * 10f;
+                                        float speed2 = MainV2.comPort.MAV.cs.press_abs2 * 10f;
+                                        quickView.numberformat = $"{speed1:000} / {speed2:000}";
+                                    }
+                                    quickView.desc = "AS1/2";
+                                    if (!is_cruising)
+                                        quickView.BackColor = Color.FromArgb(20, 20, 20);
+                                    else if (value < 18.8)
+                                        quickView.BackColor = Color.DarkRed;
+                                    else if (value < 19.8)
+                                        quickView.BackColor = Color.Orange;
+                                    else
+                                        quickView.BackColor = Color.Green;
+                                    break;
+
+                                case "ter_curalt":
+                                    value = MainV2.comPort.MAV.cs.ter_curalt;
+                                    quickView.desc = "alt/rng";
+                                    {
+                                        int alt1 = (int)Math.Truncate(MainV2.comPort.MAV.cs.rangefinder1 * 0.01f);
+                                        int alt2 = (int)Math.Truncate(MainV2.comPort.MAV.cs.ter_curalt);
+                                        quickView.numberformat = $"{alt2:D3} / {alt1:D3}";
+                                    }
+                                    if (!is_cruising || MainV2.comPort.MAV.cs.DistToHome < 800)
+                                        quickView.BackColor = Color.FromArgb(20, 20, 20);
+                                    else if (MainV2.comPort.MAV.cs.rangefinder1 < 10 && value > 60)
+                                        quickView.BackColor = Color.Orange;
+                                    else if (value < 60)
+                                        quickView.BackColor = Color.DarkRed;
+                                    else if (value < 80)
+                                        quickView.BackColor = Color.Orange;
+                                    else
+                                        quickView.BackColor = Color.Green;
+                                    break;
+
+                                case "boardvoltage":
+                                    quickView.desc = "5V";
+                                    value = MainV2.comPort.MAV.cs.boardvoltage / 1000;
+                                    quickView.number = value;
+                                    if (value < 4.2)
+                                        quickView.BackColor = Color.DarkRed;
+                                    else if (value < 4.8)
+                                        quickView.BackColor = Color.Orange;
+                                    else
+                                        quickView.BackColor = Color.Green;
+                                    break;
+
+                                case "satcount":
+                                    {
+                                        int sat1 = (int)Math.Truncate(MainV2.comPort.MAV.cs.satcount);
+                                        int sat2 = (int)Math.Truncate(MainV2.comPort.MAV.cs.satcount2);
+                                        quickView.desc = "Sat";
+                                        quickView.numberformat = $"{sat1:D2} / {sat2:D2}";
+                                        value = (float)Math.Min(MainV2.comPort.MAV.cs.satcount, MainV2.comPort.MAV.cs.satcount2);
+                                    }
+
+                                    if (value < 8)
+                                        quickView.BackColor = Color.DarkRed;
+                                    else if (value < 11)
+                                        quickView.BackColor = Color.Orange;
+                                    else
+                                        quickView.BackColor = Color.Green;
+                                    break;
+
+                                case "xtrack_error":
+                                    quickView.desc = "Ecart";
+                                    value = MainV2.comPort.MAV.cs.xtrack_error;
+                                    if (!is_cruising)
+                                        quickView.BackColor = Color.FromArgb(20, 20, 20);
+                                    else if (value > 400)
+                                        quickView.BackColor = Color.DarkRed;
+                                    else if (value > 10)
+                                        quickView.BackColor = Color.Orange;
+                                    else
+                                        quickView.BackColor = Color.Green;
+                                    break;
+
+                                case "roll":
+                                    quickView.desc = "roll";
+                                    value = MainV2.comPort.MAV.cs.roll;
+                                    if (!is_cruising)
+                                        quickView.BackColor = Color.FromArgb(20, 20, 20);
+                                    else if (Math.Abs(value) > 40)
+                                        quickView.BackColor = Color.DarkRed;
+                                    else if (Math.Abs(value) > 4)
+                                        quickView.BackColor = Color.Orange;
+                                    else
+                                        quickView.BackColor = Color.Green;
+                                    break;
+
+                                case "current":
+                                    current_lowpass = 0.95f * current_lowpass + 0.05f * (float)MainV2.comPort.MAV.cs.current;
+                                    value = current_lowpass;
+                                    quickView.number = value;
+                                    quickView.desc = "Curr";
+                                    {
+                                        if (!is_cruising)
+                                            quickView.BackColor = Color.FromArgb(20, 20, 20);
+                                        else if (Math.Abs(value) > 80)
+                                            quickView.BackColor = Color.DarkRed;
+                                        else if (Math.Abs(value) > 31 || Math.Abs(value) < 5)
+                                            quickView.BackColor = Color.Orange;
+                                        else
+                                            quickView.BackColor = Color.Green;
+                                    }
+                                    break;
+
+                                case "pitch":
+                                    quickView.desc = "pitch";
+                                    value = MainV2.comPort.MAV.cs.pitch;
+                                    if (!is_cruising || wp_dist_loop_count >= 3)
+                                        quickView.BackColor = Color.FromArgb(20, 20, 20);
+                                    else if (value > 12 || value < -12)
+                                        quickView.BackColor = Color.DarkRed;
+                                    else if (value > 7 || value < -5)
+                                        quickView.BackColor = Color.Orange;
+                                    else
+                                        quickView.BackColor = Color.Green;
+                                    break;
+
+                                case "ch3percent":
+                                    throttle_lowpass = 0.95f * throttle_lowpass + 0.05f * MainV2.comPort.MAV.cs.ch3percent;
+                                    value = throttle_lowpass;
+                                    quickView.number = value;
+                                    quickView.desc = "Throttle";
+                                    if (!is_cruising)
+                                        quickView.BackColor = Color.FromArgb(20, 20, 20);
+                                    else if (value > 80 || value < 40)
+                                        quickView.BackColor = Color.Orange;
+                                    else
+                                        quickView.BackColor = Color.Green;
+                                    break;
+
+                                case "vibez":
+                                    quickView.desc = "Vibe+";
+                                    value = MainV2.comPort.MAV.cs.vibez + MainV2.comPort.MAV.cs.vibex + MainV2.comPort.MAV.cs.vibey;
+                                    if (!is_cruising)
+                                        quickView.BackColor = Color.FromArgb(20, 20, 20);
+                                    else if (value > 35)
+                                        quickView.BackColor = Color.DarkRed;
+                                    else if (value > 15)
+                                        quickView.BackColor = Color.Orange;
+                                    else
+                                        quickView.BackColor = Color.Green;
+                                    break;
+
+                                case "climbrate":
+                                    quickView.desc = "VZ";
+                                    value = MainV2.comPort.MAV.cs.climbrate;
+                                    if (!is_cruising)
+                                        quickView.BackColor = Color.FromArgb(20, 20, 20);
+                                    else if (Math.Abs(value) > 7)
+                                        quickView.BackColor = Color.DarkRed;
+                                    else if (Math.Abs(value) > 5)
+                                        quickView.BackColor = Color.Orange;
+                                    else
+                                        quickView.BackColor = Color.Green;
+                                    break;
+
+                                case "groundspeed":
+                                    quickView.desc = "GS";
+                                    value = MainV2.comPort.MAV.cs.groundspeed;
+                                    quickView.BackColor = Color.FromArgb(20, 20, 20);
+                                    break;
+                                case "timesincelastshot":
+                                    quickView.desc = "Delay";
+                                    break;
+                                case "timeInAirMinSec":
+                                    quickView.desc = "AirTime";
+                                    break;
+                                default:
+                                    quickView.BackColor = Color.FromArgb(20, 20, 20);
+                                    break;
+                            }
+
+                            if (quickView.BackColor == Color.DarkRed && is_cruising)
+                            {
+                                if ((DateTime.Now - lastBeepTime).TotalSeconds >= 20)
+                                {
+                                    // 1000 Hz pendant 500 ms
+                                    Console.Beep(1000, 500);
+                                    lastBeepTime = DateTime.Now;
+                                }
+                            }
+                        }
+                    }
+                }
+
+
+                // end
 
                 lastscreenupdate = DateTime.UtcNow;
             }
