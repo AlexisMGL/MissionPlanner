@@ -6171,6 +6171,34 @@ namespace MissionPlanner.GCSViews
                 this.textBoxSN.Text = "SN " + MainV2.comPort.MAV.sysid.ToString("D3");
                 this.textBoxSN2.Text = "SN " + MainV2.comPort.MAV.sysid.ToString("D3");
 
+                if ((int)MainV2.comPort.MAV.cs.wpno != prev_wp)
+                {
+
+                    if (Autonav.Checked)
+                    {
+                        int curr_wp = (int)MainV2.comPort.MAV.cs.wpno;
+
+
+                        NavWrite navWriter = new NavWrite();
+                        switch (curr_wp - prev_wp)
+                        {
+                            case 2:
+                                navWriter.Write(curr_wp - 2);
+                                break;
+                            case 3:
+                                navWriter.Write(curr_wp - 3);
+                                break;
+                            default:
+                                navWriter.Write(curr_wp - 1);
+                                break;
+                        }
+                    }
+
+                    prev_wp = (int)MainV2.comPort.MAV.cs.wpno;
+
+                }
+
+
                 if (MainV2.comPort.MAV.cs.ter_curalt > 30 && MainV2.comPort.MAV.cs.DistToHome > 500)
                 {
                     is_cruising = true;
@@ -6208,36 +6236,12 @@ namespace MissionPlanner.GCSViews
                                     else
                                         quickView.BackColor = Color.Green;
                                     break;
-                                case "press_abs":
-                                    value = MainV2.comPort.MAV.cs.airspeed;
-                                    {
-                                        float speed1 = MainV2.comPort.MAV.cs.press_abs * 10f;
-                                        float speed2 = MainV2.comPort.MAV.cs.press_abs2 * 10f;
-                                        quickView.numberformat = $"{speed1:000} / {speed2:000}";
-                                    }
-                                    quickView.desc = "AS1/2";
-                                    if (!is_cruising)
-                                        quickView.BackColor = Color.FromArgb(20, 20, 20);
-                                    else if (value < 18.8)
-                                        quickView.BackColor = Color.DarkRed;
-                                    else if (value < 19.8)
-                                        quickView.BackColor = Color.Orange;
-                                    else
-                                        quickView.BackColor = Color.Green;
-                                    break;
 
                                 case "ter_curalt":
                                     value = MainV2.comPort.MAV.cs.ter_curalt;
-                                    quickView.desc = "alt/rng";
-                                    {
-                                        int alt1 = (int)Math.Truncate(MainV2.comPort.MAV.cs.rangefinder1 * 0.01f);
-                                        int alt2 = (int)Math.Truncate(MainV2.comPort.MAV.cs.ter_curalt);
-                                        quickView.numberformat = $"{alt2:D3} / {alt1:D3}";
-                                    }
+                                    quickView.desc = "teralt";
                                     if (!is_cruising || MainV2.comPort.MAV.cs.DistToHome < 800)
                                         quickView.BackColor = Color.FromArgb(20, 20, 20);
-                                    else if (MainV2.comPort.MAV.cs.rangefinder1 < 10 && value > 60)
-                                        quickView.BackColor = Color.Orange;
                                     else if (value < 60)
                                         quickView.BackColor = Color.DarkRed;
                                     else if (value < 80)
@@ -6262,11 +6266,9 @@ namespace MissionPlanner.GCSViews
                                     {
                                         int sat1 = (int)Math.Truncate(MainV2.comPort.MAV.cs.satcount);
                                         int sat2 = (int)Math.Truncate(MainV2.comPort.MAV.cs.satcount2);
-                                        quickView.desc = "Sat";
-                                        quickView.numberformat = $"{sat1:D2} / {sat2:D2}";
+                                        quickView.desc = "Sat1";
                                         value = (float)Math.Min(MainV2.comPort.MAV.cs.satcount, MainV2.comPort.MAV.cs.satcount2);
                                     }
-
                                     if (value < 8)
                                         quickView.BackColor = Color.DarkRed;
                                     else if (value < 11)
