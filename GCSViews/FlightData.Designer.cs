@@ -11,6 +11,8 @@ namespace MissionPlanner.GCSViews
         private void InitializeComponent()
         {
             // Edit MD
+            this.BUT_camon = new MissionPlanner.Controls.MyButton();
+            this.BUT_camoff = new MissionPlanner.Controls.MyButton();
             this.BUT_parachute = new MissionPlanner.Controls.CustomButton();
             this.CamPic = new PictureBox();
             this.DelaiLabel = new System.Windows.Forms.Label();
@@ -3075,8 +3077,8 @@ namespace MissionPlanner.GCSViews
             this.tableLayoutPanel1.Controls.Add(this.modifyandSetSpeed, 1, 4);
             this.tableLayoutPanel1.Controls.Add(this.CMB_setwp, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.BUT_DropPL, 1, 7);
-            //this.tableLayoutPanel1.Controls.Add(this.BUT_camon, 0, 1);
-            //this.tableLayoutPanel1.Controls.Add(this.BUT_camoff, 1, 1);
+            this.tableLayoutPanel1.Controls.Add(this.BUT_camon, 0, 9);
+            this.tableLayoutPanel1.Controls.Add(this.BUT_camoff, 1, 9);
             this.tableLayoutPanel1.Controls.Add(this.BUT_parachute, 0, 7);
             this.tableLayoutPanel1.Controls.Add(this.BUT_quickrtl, 0, 8);
             this.tableLayoutPanel1.Controls.Add(this.Autonav, 3, 0);
@@ -3087,7 +3089,6 @@ namespace MissionPlanner.GCSViews
             this.tableLayoutPanel1.Controls.Add(this.BUT_setmode, 1, 3);
             this.tableLayoutPanel1.Controls.Add(this.modifyandSetAlt, 0, 5);
             this.tableLayoutPanel1.RowStyles.Insert(6, new RowStyle(SizeType.Absolute, 20)); // Ajoute une ligne de 20 pixels entre la ligne 5 et 7
-                                                                                             // Redéfinir les RowStyles si nécessaire pour ajuster la hauteur des lignes
             this.tableLayoutPanel1.RowStyles[0] = new RowStyle(SizeType.Absolute, 23); // Ajuste la taille de la ligne 0
             this.tableLayoutPanel1.RowStyles[1] = new RowStyle(SizeType.Absolute, 23); // Ajuste la taille de la ligne 1
 
@@ -3120,9 +3121,9 @@ namespace MissionPlanner.GCSViews
             this.tableLayoutPanel1.SetColumnSpan(this.CMB_modes, 2);
             this.tableLayoutPanel1.SetColumnSpan(this.BUT_setmode, 2);
             this.tableLayoutPanel1.SetColumnSpan(this.BUT_parachute, 2);
-            this.tableLayoutPanel1.SetRowSpan(this.modifyandSetSpeed, 2);
+            this.tableLayoutPanel1.SetRowSpan(this.modifyandSetSpeed, 1);
             this.tableLayoutPanel1.SetColumnSpan(this.modifyandSetSpeed, 3);
-            this.tableLayoutPanel1.SetRowSpan(this.modifyandSetAlt, 2);
+            this.tableLayoutPanel1.SetRowSpan(this.modifyandSetAlt, 1);
             this.tableLayoutPanel1.SetColumnSpan(this.modifyandSetAlt, 2);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             // this.tableLayoutPanel1.Resize += new System.EventHandler(this.tableLayoutPanel1_Resize);
@@ -3237,7 +3238,7 @@ namespace MissionPlanner.GCSViews
             this.BUT_camon.Name = "BUT_camon";
             this.toolTip1.SetToolTip(this.BUT_camon, resources.GetString("BUT_camon.ToolTip"));
             this.BUT_camon.UseVisualStyleBackColor = true;
-            // this.BUT_camon.Click += new System.EventHandler(this.BUT_camon_Click);
+            this.BUT_camon.Click += new System.EventHandler(this.BUT_camon_Click);
             // 
             // BUT_camoff
             // 
@@ -3248,7 +3249,7 @@ namespace MissionPlanner.GCSViews
             this.BUT_camoff.Name = "BUT_camoff";
             this.toolTip1.SetToolTip(this.BUT_camoff, resources.GetString("BUT_camoff.ToolTip"));
             this.BUT_camoff.UseVisualStyleBackColor = true;
-            // this.BUT_camoff.Click += new System.EventHandler(this.BUT_camoff_Click);
+            this.BUT_camoff.Click += new System.EventHandler(this.BUT_camoff_Click);
             // 
             // BUT_parachute
             // 

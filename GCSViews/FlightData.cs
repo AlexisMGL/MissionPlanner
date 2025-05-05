@@ -5073,74 +5073,37 @@ namespace MissionPlanner.GCSViews
             tableLayoutPanel4.Width = tabQuick.Width;
             tableLayoutPanel4.AutoScroll = false;
         }
-        //public void BUT_camon_Click(object sender, EventArgs e)
-        //{
-        //    try
-        //    {
-        //        MainV2.comPort.doCommand((byte)MainV2.comPort.sysidcurrent,
-        //                                 (byte)MainV2.comPort.compidcurrent,
-        //                                 MAVLink.MAV_CMD.VIDEO_START_STREAMING,
-        //                                 0, 0, 0, 0, 0, 0, 0);
-        //    }
-        //    catch
-        //    {
-        //        CustomMessageBox.Show(Strings.CommandFailed, Strings.ERROR);
-        //    }
-        //    CamPic.Size = new System.Drawing.Size(400, 600);
 
-        //    dropoutV = new Form();
-        //    dropoutV.Text = "Cam Stream";
-        //    dropoutV.Size = new Size(CamPic.Width, CamPic.Height + 20); // Augmenter la hauteur pour le label
-        //    dropoutV.Controls.Add(CamPic);
+        public void BUT_camon_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                MainV2.comPort.doCommand((byte)MainV2.comPort.sysidcurrent,
+                                         (byte)MainV2.comPort.compidcurrent,
+                                         MAVLink.MAV_CMD.VIDEO_START_STREAMING,
+                                         0, 0, 0, 0, 0, 0, 0);
+            }
+            catch
+            {
+                CustomMessageBox.Show(Strings.CommandFailed, Strings.ERROR);
+            }
+        }
+        public void BUT_camoff_Click(object sender, EventArgs e)
+        {
 
-        //    DateTime windt = DateTime.Now;
-        //    DateTime mavdt = MainV2.comPort.MAV.cs.datetime;
-        //    // Calculate and set delay text
-        //    TimeSpan delay = windt - mavdt;
-        //    DelaiLabel.Text = $"délai = {delay.TotalSeconds:F0} s";
-        //    DelaiLabel.AutoSize = true;
-        //    DelaiLabel.ForeColor = Color.White;
-        //    DelaiLabel.BackColor = Color.Black;
-        //    DelaiLabel.Font = new Font(DelaiLabel.Font.FontFamily, 12, FontStyle.Bold);
-        //    DelaiLabel.Location = new Point(10, 10); // Position in the top left corner of CamPic
+            try
+            {
+                MainV2.comPort.doCommand((byte)MainV2.comPort.sysidcurrent,
+                                         (byte)MainV2.comPort.compidcurrent,
+                                         MAVLink.MAV_CMD.VIDEO_STOP_STREAMING,
+                                         0, 0, 0, 0, 0, 0, 0);
+            }
+            catch
+            {
+                CustomMessageBox.Show(Strings.CommandFailed, Strings.ERROR);
+            }
 
-        //    CamPic.Controls.Add(DelaiLabel);
-        //    CamPic.Controls.SetChildIndex(DelaiLabel, 0);
-
-
-
-        //    dropoutV.Resize += dropoutV_Resize;
-        //    dropoutV.FormClosed += dropoutV_FormClosed;
-        //    dropoutV.StartPosition = FormStartPosition.CenterScreen; // Assuming RestoreStartupLocation sets this
-        //    dropoutV.Show();
-        //}
-        //public void BUT_camoff_Click(object sender, EventArgs e)
-        //{
-
-        //    try
-        //    {
-        //        MainV2.comPort.doCommand((byte)MainV2.comPort.sysidcurrent,
-        //                                 (byte)MainV2.comPort.compidcurrent,
-        //                                 MAVLink.MAV_CMD.VIDEO_STOP_STREAMING,
-        //                                 0, 0, 0, 0, 0, 0, 0);
-        //    }
-        //    catch
-        //    {
-        //        CustomMessageBox.Show(Strings.CommandFailed, Strings.ERROR);
-        //    }
-        //    CamPic.Controls.Clear();
-        //    if (dropoutV != null && !dropoutV.IsDisposed)
-        //    {
-        //        dropoutV.Controls.Clear();
-        //        dropoutV.Close();
-
-        //    }
-
-        //}
-        //private void dropoutV_FormClosed(object sender, FormClosedEventArgs e)
-        //{
-        //    BUT_camoff_Click(sender, e);
-        //}
+        }
 
         public void BUT_DropPL_Click(object sender, EventArgs e)
         {
