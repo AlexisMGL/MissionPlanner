@@ -5151,11 +5151,7 @@ namespace MissionPlanner.GCSViews
                             args[6]
                         );
 
-                        // Feedback dans la console
-                        Console.WriteLine(
-                            $"[DEBUG] Commande envoyée : {cmd} (sysid={sysid}, compid={compid}, " +
-                            $"args=[{string.Join(", ", args)}])"
-                        );
+
                     }
                     catch (Exception ex)
                     {
