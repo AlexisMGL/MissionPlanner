@@ -5076,18 +5076,98 @@ namespace MissionPlanner.GCSViews
 
         public void BUT_camon_Click(object sender, EventArgs e)
         {
-            try
+            // Création du form “à la volée”
+            using (var dlg = new Form())
             {
-                MainV2.comPort.doCommand((byte)MainV2.comPort.sysidcurrent,
-                                         (byte)MainV2.comPort.compidcurrent,
-                                         MAVLink.MAV_CMD.VIDEO_START_STREAMING,
-                                         0, 0, 0, 0, 0, 0, 0);
-            }
-            catch
-            {
-                CustomMessageBox.Show(Strings.CommandFailed, Strings.ERROR);
+                dlg.Text = "Paramètres du streaming vidéo";
+                dlg.FormBorderStyle = FormBorderStyle.FixedDialog;
+                dlg.StartPosition = FormStartPosition.CenterParent;
+                dlg.Width = 320;
+                dlg.Height = 350;
+                dlg.MaximizeBox = false;
+                dlg.MinimizeBox = false;
+
+                // Tableaux pour labels et textboxes
+                var textBoxes = new TextBox[7];
+                for (int i = 0; i < 7; i++)
+                {
+
+                    // TextBox pour saisir la valeur
+                    var tb = new TextBox
+                    {
+                        Left = 70,
+                        Top = 12 + i * 35,
+                        Width = 220,
+                        Text = "0"
+                    };
+                    dlg.Controls.Add(tb);
+                    textBoxes[i] = tb;
+                }
+
+                // Bouton OK
+                var btnOk = new Button
+                {
+                    Text = "OK",
+                    DialogResult = DialogResult.OK,
+                    Left = 70,
+                    Width = 80,
+                    Top = 12 + 7 * 35
+                };
+                // Bouton Annuler
+                var btnCancel = new Button
+                {
+                    Text = "Annuler",
+                    DialogResult = DialogResult.Cancel,
+                    Left = 170,
+                    Width = 80,
+                    Top = 12 + 7 * 35
+                };
+                dlg.Controls.Add(btnOk);
+                dlg.Controls.Add(btnCancel);
+
+                dlg.AcceptButton = btnOk;
+                dlg.CancelButton = btnCancel;
+
+                // Affichage modal
+                if (dlg.ShowDialog() == DialogResult.OK)
+                {
+                    try
+                    {
+                        // Parsing des 7 arguments (fallback à 0 si invalide)
+                        int[] args = textBoxes
+                            .Select(tb => {
+                                int v;
+                                return int.TryParse(tb.Text, out v) ? v : 0;
+                            })
+                            .ToArray();
+
+                        // Appel à doCommand avec les 7 valeurs
+                        MainV2.comPort.doCommand(
+                            (byte)MainV2.comPort.sysidcurrent,
+                            (byte)MainV2.comPort.compidcurrent,
+                            MAVLink.MAV_CMD.VIDEO_START_STREAMING,
+                            args[0], args[1], args[2],
+                            args[3], args[4], args[5],
+                            args[6]
+                        );
+
+                        // Feedback dans la console
+                        Console.WriteLine(
+                            $"[DEBUG] Commande envoyée : {cmd} (sysid={sysid}, compid={compid}, " +
+                            $"args=[{string.Join(", ", args)}])"
+                        );
+                    }
+                    catch (Exception ex)
+                    {
+                        CustomMessageBox.Show(
+                            $"{Strings.CommandFailed}\n{ex.Message}",
+                            Strings.ERROR
+                        );
+                    }
+                }
             }
         }
+
         public void BUT_camoff_Click(object sender, EventArgs e)
         {
 
