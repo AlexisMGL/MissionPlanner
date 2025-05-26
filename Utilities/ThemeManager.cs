@@ -106,7 +106,7 @@ namespace MissionPlanner.Utilities
             colors.Add("Disabled Button", Color.DarkGray, "ColorNotEnabled");		// This changes the background color of buttons when not enabled
             colors.Add("Button Mouseover", Color.RoyalBlue, "ColorMouseOver");			// This changes the background color of buttons when the mouse is hovering over a button
             colors.Add("Button Mousedown", Color.Black, "ColorMouseDown");			// This changes the background color of buttons when the mouse is clicked down on a button
-            colors.Add("Graph Chart Fill", Color.FromArgb(20, 20, 20), "ZedGraphChartFill");    // These three variables change the fill colours of Zed Graphs
+            colors.Add("Graph Chart Fill", Color.WhiteSmoke, "ZedGraphChartFill");    // These three variables change the fill colours of Zed Graphs
             colors.Add("ProgressBar Top", Color.FromArgb(176, 196, 222), "ProgressBarColorTop");	// These three variables change the colours of progress bars
             colors.Add("ProgressBar Bottom", Color.FromArgb(65, 105, 225), "ProgressBarColorBot");
             colors.Add("ProgressBar Outline", Color.FromArgb(25, 25, 112), "ProgressBarOutlineColor");
@@ -1220,9 +1220,9 @@ mc:Ignorable=""d""
                         GraphPane.Y2Axis.MajorTic.Color = TextColor;
                         GraphPane.Y2Axis.MinorTic.Color = TextColor;
 
-                        GraphPane.XAxis.MajorGrid.Color = TextColor;
-                        GraphPane.YAxis.MajorGrid.Color = TextColor;
-                        GraphPane.Y2Axis.MajorGrid.Color = TextColor;
+                        GraphPane.XAxis.MajorGrid.Color = Color.Black;
+                        GraphPane.YAxis.MajorGrid.Color = Color.Black;
+                        GraphPane.Y2Axis.MajorGrid.Color = Color.Black;
 
                         GraphPane.YAxis.Scale.FontSpec.FontColor = TextColor;
                         GraphPane.YAxis.Title.FontSpec.FontColor = TextColor;

@@ -164,7 +164,7 @@ namespace MissionPlanner.Utilities
                         {
                             var lon = Double.Parse(dfItem.items[index2], CultureInfo.InvariantCulture);
                             if (lon != 0)
-                                dfItem.items[index2] =(lon + random + 99).ToString(CultureInfo.InvariantCulture);
+                                dfItem.items[index2] =(lon + random + 70).ToString(CultureInfo.InvariantCulture);
                         }
 
                         var str = String.Join(",", dfItem.items) + "\r\n";
