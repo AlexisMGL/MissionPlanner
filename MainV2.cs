@@ -557,6 +557,35 @@ namespace MissionPlanner
 
         public static bool isHerelink = false;
 
+        public static Controls.VideoForm videoForm;
+
+        public static void ShowVideoWindow()
+        {
+            if (videoForm == null || videoForm.IsDisposed)
+                videoForm = new Controls.VideoForm();
+
+            if (!videoForm.Visible)
+                videoForm.Show();
+        }
+
+        public static void HideVideoWindow()
+        {
+            if (videoForm != null)
+                videoForm.Hide();
+        }
+
+        public static void UpdateVideoFrame(Bitmap frame)
+        {
+            if (frame == null)
+            {
+                videoForm?.UpdateFrame(null);
+                return;
+            }
+
+            ShowVideoWindow();
+            videoForm.UpdateFrame(frame);
+        }
+
         public static MainSwitcher View;
 
         /// <summary>
@@ -3406,19 +3435,7 @@ namespace MissionPlanner
             {
                 try
                 {
-                    if (image == null)
-                    {
-                        GCSViews.FlightData.myhud.bgimage = null;
-                        return;
-                    }
-
-                    var old = GCSViews.FlightData.myhud.bgimage;
-                    GCSViews.FlightData.myhud.bgimage = new Bitmap(image.Width, image.Height, 4 * image.Width,
-                        PixelFormat.Format32bppPArgb,
-                        image.LockBits(Rectangle.Empty, null, SKColorType.Bgra8888)
-                            .Scan0);
-                    if (old != null)
-                        old.Dispose();
+                    MainV2.UpdateVideoFrame(image);
                 }
                 catch
                 {
@@ -3429,20 +3446,7 @@ namespace MissionPlanner
             {
                 try
                 {
-                    if (image == null)
-                    {
-                        GCSViews.FlightData.myhud.bgimage = null;
-                        return;
-                    }
-
-                    var old = GCSViews.FlightData.myhud.bgimage;
-                    GCSViews.FlightData.myhud.bgimage = new Bitmap(image.Width,
-                        image.Height,
-                        4 * image.Width,
-                        PixelFormat.Format32bppPArgb,
-                        image.LockBits(Rectangle.Empty, null, SKColorType.Bgra8888).Scan0);
-                    if (old != null)
-                        old.Dispose();
+                    MainV2.UpdateVideoFrame(image);
                 }
                 catch
                 {
@@ -3453,18 +3457,7 @@ namespace MissionPlanner
             {
                 try
                 {
-                    if (image == null)
-                    {
-                        GCSViews.FlightData.myhud.bgimage = null;
-                        return;
-                    }
-
-                    var old = GCSViews.FlightData.myhud.bgimage;
-                    GCSViews.FlightData.myhud.bgimage = new Bitmap(image.Width, image.Height, 4 * image.Width,
-                        PixelFormat.Format32bppPArgb,
-                        image.LockBits(Rectangle.Empty, null, SKColorType.Bgra8888).Scan0);
-                    if (old != null)
-                        old.Dispose();
+                    MainV2.UpdateVideoFrame(image);
                 }
                 catch
                 {
