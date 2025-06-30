@@ -6351,7 +6351,7 @@ namespace MissionPlanner.GCSViews
                                     value = MainV2.comPort.MAV.cs.vibez + MainV2.comPort.MAV.cs.vibex + MainV2.comPort.MAV.cs.vibey;
                                     if (!is_cruising)
                                         quickView.BackColor = Color.FromArgb(20, 20, 20);
-                                    else if (value > 35)
+                                    else if (value > 55)
                                         quickView.BackColor = Color.DarkRed;
                                     else if (value > 15)
                                         quickView.BackColor = Color.Orange;
