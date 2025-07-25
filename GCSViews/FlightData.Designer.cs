@@ -3080,7 +3080,7 @@ namespace MissionPlanner.GCSViews
             this.tableLayoutPanel1.Controls.Add(this.BUT_parachute, 0, 7);
             this.tableLayoutPanel1.Controls.Add(this.BUT_quickrtl, 0, 8);
             this.tableLayoutPanel1.Controls.Add(this.Autonav, 3, 0);
-            //this.tableLayoutPanel1.Controls.Add(this.Autostream, 3, 1);
+            this.tableLayoutPanel1.Controls.Add(this.Autostream, 3, 1);
             this.tableLayoutPanel1.Controls.Add(this.BUT_setwp, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.CMB_modes, 0, 3);
             this.tableLayoutPanel1.Controls.Add(this.BUT_quickauto, 0, 4);
