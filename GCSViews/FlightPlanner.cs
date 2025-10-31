@@ -9,6 +9,7 @@ using GMap.NET.WindowsForms.Markers;
 using Ionic.Zip;
 using log4net;
 using MissionPlanner.ArduPilot;
+using MissionPlanner;
 using MissionPlanner.Controls;
 using MissionPlanner.Grid;
 using MissionPlanner.Maps;
@@ -3970,11 +3971,11 @@ namespace MissionPlanner.GCSViews
 
         private void getWPs(IProgressReporterDialogue sender)
         {
-            var type = (MAVLink.MAV_MISSION_TYPE) Invoke((Func<MAVLink.MAV_MISSION_TYPE>) delegate
+            var type = (MAVLink.MAV_MISSION_TYPE)Invoke((Func<MAVLink.MAV_MISSION_TYPE>)delegate
             {
-                return (MAVLink.MAV_MISSION_TYPE) cmb_missiontype.SelectedValue;
+                return (MAVLink.MAV_MISSION_TYPE)cmb_missiontype.SelectedValue;
             });
-
+            NavWrite navWriter = new NavWrite();
             if (chk_usemavftp.Checked)
             {
                 try
@@ -3984,20 +3985,20 @@ namespace MissionPlanner.GCSViews
                         var ftp = new MAVFtp(MainV2.comPort, MainV2.comPort.MAV.sysid, MainV2.comPort.MAV.compid);
                         ftp.Progress += (status, percent) => { sender.UpdateProgressAndStatus((int)(percent), status); };
                         if (type == MAVLink.MAV_MISSION_TYPE.MISSION)
-                            return ftp.GetFile(
-                                "@MISSION/mission.dat", null, true, 110);
+                            return ftp.GetFile("@MISSION/mission.dat", null, true, 110);
                         if (type == MAVLink.MAV_MISSION_TYPE.FENCE)
-                            return ftp.GetFile(
-                                "@MISSION/fence.dat", null, true, 110);
+                            return ftp.GetFile("@MISSION/fence.dat", null, true, 110);
                         if (type == MAVLink.MAV_MISSION_TYPE.RALLY)
-                            return ftp.GetFile(
-                                "@MISSION/rally.dat", null, true, 110);
+                            return ftp.GetFile("@MISSION/rally.dat", null, true, 110);
                         return null;
                     });
                     var values = missionpck.unpack(paramfileTask.GetAwaiter().GetResult().ToArray());
                     MainV2.comPort.MAVlist[MainV2.comPort.MAV.sysid, MainV2.comPort.MAV.compid].wps.Clear();
                     values.wps.ForEach(wp => MainV2.comPort.MAVlist[MainV2.comPort.MAV.sysid, MainV2.comPort.MAV.compid].wps[wp.seq] = wp);
-                    WPtoScreen(values.wps.Select(a => (Locationwp)a).ToList());
+                    var missionList = values.wps.Select(a => (Locationwp)a).ToList();
+                    WPtoScreen(missionList);
+                    
+                    navWriter.WriteNavMission(missionList); // <-- Ajoute cet appel ici
                     return;
                 }
                 catch (Exception ex)
@@ -4023,6 +4024,7 @@ namespace MissionPlanner.GCSViews
                 }).GetAwaiter().GetResult();
 
             WPtoScreen(cmds);
+            navWriter.WriteNavMission(cmds); // <-- Ajoute cet appel ici aussi
         }
 
         public void insertSplineWPToolStripMenuItem_Click(object sender, EventArgs e)
