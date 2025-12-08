@@ -642,6 +642,7 @@ namespace MissionPlanner.GCSViews
             this.tabControlactions.Controls.Add(this.tabTLogs);
             this.tabControlactions.Controls.Add(this.tablogbrowse);
             resources.ApplyResources(this.tabControlactions, "tabControlactions");
+            this.tabControlactions.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControlactions.Name = "tabControlactions";
             this.tabControlactions.SelectedIndex = 0;
             this.tabControlactions.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.tabControl1_DrawItem);
@@ -3072,11 +3073,12 @@ namespace MissionPlanner.GCSViews
             this.tabGroundActions.UseVisualStyleBackColor = true;
             // tabFlightActions
             resources.ApplyResources(this.tableLayoutPanel1, "tableLayoutPanel1");
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Controls.Add(this.modifyandSetSpeed, 1, 4);
             this.tableLayoutPanel1.Controls.Add(this.CMB_setwp, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.BUT_DropPL, 1, 7);
-            //this.tableLayoutPanel1.Controls.Add(this.BUT_camon, 0, 1);
-            //this.tableLayoutPanel1.Controls.Add(this.BUT_camoff, 1, 1);
+            this.tableLayoutPanel1.Controls.Add(this.BUT_camon, 0, 9);
+            this.tableLayoutPanel1.Controls.Add(this.BUT_camoff, 2, 9);
             this.tableLayoutPanel1.Controls.Add(this.BUT_parachute, 0, 7);
             this.tableLayoutPanel1.Controls.Add(this.BUT_quickrtl, 0, 8);
             this.tableLayoutPanel1.Controls.Add(this.Autonav, 3, 0);
@@ -3090,6 +3092,9 @@ namespace MissionPlanner.GCSViews
                                                                                              // Redéfinir les RowStyles si nécessaire pour ajuster la hauteur des lignes
             this.tableLayoutPanel1.RowStyles[0] = new RowStyle(SizeType.Absolute, 23); // Ajuste la taille de la ligne 0
             this.tableLayoutPanel1.RowStyles[1] = new RowStyle(SizeType.Absolute, 23); // Ajuste la taille de la ligne 1
+            this.tableLayoutPanel1.RowStyles[2] = new RowStyle(SizeType.Absolute, 30F);
+            this.tableLayoutPanel1.RowStyles[3] = new RowStyle(SizeType.Absolute, 30F);
+            this.tableLayoutPanel1.RowStyles[4] = new RowStyle(SizeType.Absolute, 30F);
 
 
             // Création de la TextBox
@@ -3237,7 +3242,7 @@ namespace MissionPlanner.GCSViews
             this.BUT_camon.Name = "BUT_camon";
             this.toolTip1.SetToolTip(this.BUT_camon, resources.GetString("BUT_camon.ToolTip"));
             this.BUT_camon.UseVisualStyleBackColor = true;
-            // this.BUT_camon.Click += new System.EventHandler(this.BUT_camon_Click);
+            this.BUT_camon.Click += new System.EventHandler(this.BUT_camon_Click);
             // 
             // BUT_camoff
             // 
@@ -3248,7 +3253,7 @@ namespace MissionPlanner.GCSViews
             this.BUT_camoff.Name = "BUT_camoff";
             this.toolTip1.SetToolTip(this.BUT_camoff, resources.GetString("BUT_camoff.ToolTip"));
             this.BUT_camoff.UseVisualStyleBackColor = true;
-            // this.BUT_camoff.Click += new System.EventHandler(this.BUT_camoff_Click);
+            this.BUT_camoff.Click += new System.EventHandler(this.BUT_camoff_Click);
             // 
             // BUT_parachute
             // 
