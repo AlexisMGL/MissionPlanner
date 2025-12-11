@@ -148,6 +148,7 @@ namespace MissionPlanner.GCSViews
         GMapRoute route;
         GMapOverlay routes;
         GMapOverlay adsbais;
+        Process cameraProcess;
 
         Script script;
 
@@ -2710,6 +2711,7 @@ namespace MissionPlanner.GCSViews
 
         private void FlightData_FormClosing(object sender, FormClosingEventArgs e)
         {
+            StopCameraStream();
             threadrun = false;
 
             DateTime end = DateTime.Now.AddSeconds(5);
@@ -5073,6 +5075,74 @@ namespace MissionPlanner.GCSViews
             tableLayoutPanel4.Width = tabQuick.Width;
             tableLayoutPanel4.AutoScroll = false;
         }
+
+        void StartCameraStream()
+        {
+            // Avoid stacking multiple gst-launch instances
+            if (cameraProcess != null && !cameraProcess.HasExited)
+            {
+                return;
+            }
+
+            var gstreamerPath = @"C:\gstreamer\1.0\msvc_x86_64\bin\gst-launch-1.0.exe";
+
+            if (!File.Exists(gstreamerPath))
+            {
+                CustomMessageBox.Show("GStreamer not found at " + gstreamerPath, Strings.ERROR);
+                return;
+            }
+
+            var args =
+                "-v udpsrc port=5001 caps=\"application/x-rtp,media=video,encoding-name=H265,payload=96,clock-rate=90000\" ! rtpjitterbuffer latency=500 drop-on-latency=true ! rtph265depay ! h265parse ! avdec_h265 ! videoconvert ! autovideosink sync=false";
+
+            try
+            {
+                cameraProcess = new Process
+                {
+                    StartInfo = new ProcessStartInfo
+                    {
+                        FileName = gstreamerPath,
+                        Arguments = args,
+                        UseShellExecute = false,
+                        CreateNoWindow = true,
+                        WorkingDirectory = Path.GetDirectoryName(gstreamerPath)
+                    },
+                    EnableRaisingEvents = true
+                };
+
+                cameraProcess.Exited += (s, ev) => { cameraProcess = null; };
+                cameraProcess.Start();
+            }
+            catch (Exception ex)
+            {
+                cameraProcess = null;
+                CustomMessageBox.Show("Unable to start video stream: " + ex.Message, Strings.ERROR);
+            }
+        }
+
+        void StopCameraStream()
+        {
+            try
+            {
+                if (cameraProcess == null)
+                    return;
+
+                if (!cameraProcess.HasExited)
+                {
+                    cameraProcess.Kill();
+                    cameraProcess.WaitForExit(2000);
+                }
+            }
+            catch (Exception ex)
+            {
+                log.Warn("Failed to stop camera stream", ex);
+            }
+            finally
+            {
+                cameraProcess = null;
+            }
+        }
+
         public void BUT_camon_Click(object sender, EventArgs e)
         {
             try
@@ -5091,13 +5161,15 @@ namespace MissionPlanner.GCSViews
 
                 if (!success)
                 {
-                    CustomMessageBox.Show(Strings.CommandFailed, Strings.ERROR);
+                    log.Warn("VIDEO_START_STREAMING mavlink command failed");
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                CustomMessageBox.Show(Strings.CommandFailed, Strings.ERROR);
+                log.Warn("VIDEO_START_STREAMING mavlink command threw", ex);
             }
+
+            StartCameraStream();
         }
 
         public void BUT_camoff_Click(object sender, EventArgs e)
@@ -5118,13 +5190,15 @@ namespace MissionPlanner.GCSViews
 
                 if (!success)
                 {
-                    CustomMessageBox.Show(Strings.CommandFailed, Strings.ERROR);
+                    log.Warn("VIDEO_STOP_STREAMING mavlink command failed");
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                CustomMessageBox.Show(Strings.CommandFailed, Strings.ERROR);
+                log.Warn("VIDEO_STOP_STREAMING mavlink command threw", ex);
             }
+
+            StopCameraStream();
         }
 
 public void BUT_DropPL_Click(object sender, EventArgs e)

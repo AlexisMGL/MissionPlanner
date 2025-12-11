@@ -546,9 +546,9 @@ namespace MissionPlanner.Utilities
 
         public static class AndroidNativeMethods
         {
-            public const string lib = "libgstreamer_android.so";
+            public const string lib = "gstreamer-1.0-0.dll";
+            public const string applib = "gstapp-1.0-0.dll";
 
-            public const string applib = "libgstreamer_android.so";
 
             [DllImport(lib, CallingConvention = CallingConvention.Cdecl)]
             public static extern void gst_init(ref int argc, ref IntPtr[] argv);
@@ -875,9 +875,9 @@ namespace MissionPlanner.Utilities
             public static extern IntPtr LoadLibrary(string lpFileName);
 
 
-            public const string lib = "libgstreamer-1.0-0.dll";
+            public const string lib = "gstreamer-1.0-0.dll";
+            public const string applib = "gstapp-1.0-0.dll";
 
-            public const string applib = "libgstapp-1.0-0.dll";
 
             [DllImport(lib, CallingConvention = CallingConvention.Cdecl)]
             public static extern void gst_init(ref int argc, ref IntPtr[] argv);
@@ -1355,9 +1355,27 @@ namespace MissionPlanner.Utilities
         static GStreamer()
         {
             var dataDirectory = Settings.GetDataDirectory();
-            var gstdir = Path.Combine(dataDirectory, @"gstreamer\1.0\x86_64\bin\libgstreamer-1.0-0.dll");
+            // Try the found path instead of the hardcoded (and obsolete) one
+            var auto = LookForGstreamer();
+            if (!string.IsNullOrEmpty(auto))
+            {
+                SetGSTPath(auto);
+                return;
+            }
 
-            SetGSTPath(gstdir);
+            // Try using the auto-detected GStreamer installation
+            var auto_ = LookForGstreamer();
+            if (!string.IsNullOrEmpty(auto_))
+            {
+                SetGSTPath(auto_);
+            }
+            else
+            {
+                var gstdir = Path.Combine(dataDirectory, @"gstreamer\1.0\x86_64\bin\libgstreamer-1.0-0.dll");
+                SetGSTPath(gstdir);
+            }
+
+
         }
 
         private static void SetGSTPath(string gstdir)
@@ -1449,30 +1467,35 @@ namespace MissionPlanner.Utilities
                 log.Info($"look in dir {dir}");
                 if (Directory.Exists(dir))
                 {
-                    var ans = Directory.GetFiles(dir, "*.*", SearchOption.AllDirectories).Where(a => a.ToLower().Contains("libgstreamer-1.0-0.dll") || a.ToLower().Contains("libgstreamer-1.0.so.0") || a.ToLower().Contains("libgstreamer_android.so")).ToArray();
+                    var ans = Directory.GetFiles(dir, "*.*", SearchOption.AllDirectories)
+                        .Where(a =>
+                            // Windows MinGW (ancien MP)
+                            a.ToLower().Contains("libgstreamer-1.0-0.dll") ||
+                            a.ToLower().Contains("libgstapp-1.0-0.dll") ||
 
-                    ans = ans.Where(a =>
-                        (!is64bit && !a.ToLower().Contains("_64")) || // windows
-                        is64bit && a.ToLower().Contains("_64") || // windows
-                        a.ToLower().Contains(".so.") // linux/rpi
-                        ).ToArray();
+                            // Windows MSVC (GStreamer 1.18+)
+                            a.ToLower().Contains("gstreamer-1.0-0.dll") ||
+                            a.ToLower().Contains("gstreamer-1.0.dll") ||
+                            a.ToLower().Contains("gstapp-1.0-0.dll") ||
+
+                            // Linux
+                            a.ToLower().Contains("libgstreamer-1.0.so.0") ||
+
+                            // Android
+                            a.ToLower().Contains("libgstreamer_android.so")
+                        )
+                        .ToArray();
+
+
+                    // ACCEPT ANY gstreamer version (modern MSVC builds do not contain "_64")
+                    ans = ans.Where(a => true).ToArray();
+
 
                     if (ans.Length > 0)
                     {
                         log.Info("Found gstreamer " + ans.First());
                         SetGSTPath(ans.First());
-                        try
-                        {
-                            uint v1 = 0, v2 = 0, v3 = 0, v4 = 0;
-                            NativeMethods.gst_version(out v1, out v2, out v3, out v4);
 
-                            log.InfoFormat("GStreamer {0}.{1}.{2}.{3}", v1, v2, v3, v4);
-                        }
-                        catch (Exception ex)
-                        {
-                            log.Error(ex); 
-                            return "";
-                        }
 
                         return ans.First();
                     }
@@ -1495,55 +1518,8 @@ namespace MissionPlanner.Utilities
 
         public static void DownloadGStreamer(Action<int, string> status = null)
         {
-            if (RuntimeInformation.OSArchitecture == Architecture.Arm || RuntimeInformation.OSArchitecture == Architecture.Arm64)
-                return;
-
-            string output;
-            string url;
-            if (System.Environment.Is64BitProcess)
-            {
-                output = Settings.GetDataDirectory() + "gstreamer-1.0-x86_64-1.14.4.zip";
-                url = "https://firmware.ardupilot.org/MissionPlanner/gstreamer/gstreamer-1.0-x86_64-1.14.4.zip";
-            }
-            else
-            {
-                output = Settings.GetDataDirectory() + "gstreamer-1.0-x86-1.14.4.zip";
-                url = "https://firmware.ardupilot.org/MissionPlanner/gstreamer/gstreamer-1.0-x86-1.14.4.zip";
-            }
-
-
-            status?.Invoke(0, "Downloading..");
-            int retry = 3;
-
-            while (retry > 0)
-            {
-                try
-                {
-                    if (Download.getFilefromNet(url, output, status: status))
-                    {
-
-                        status?.Invoke(50, "Extracting..");
-                        ZipFile.ExtractToDirectory(output, Settings.GetDataDirectory());
-                        status?.Invoke(100, "Done.");
-
-                        break;
-                    }
-                }
-                catch (Exception ex)
-                {
-                    status?.Invoke(-1, "Error downloading file " + ex.ToString());
-                    try
-                    {
-                        if (File.Exists(output))
-                            File.Delete(output);
-                    }
-                    catch
-                    {
-                    }
-                    status?.Invoke(-1, "Retry");
-                } 
-                retry--;
-            }
+            log.Info("GStreamer auto-download disabled. Using system-installed GStreamer.");
         }
+
     }
 }
