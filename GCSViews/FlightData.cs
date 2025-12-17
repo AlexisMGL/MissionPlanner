@@ -5169,7 +5169,7 @@ namespace MissionPlanner.GCSViews
                 log.Warn("VIDEO_START_STREAMING mavlink command threw", ex);
             }
 
-            StartCameraStream();
+            //StartCameraStream();
         }
 
         public void BUT_camoff_Click(object sender, EventArgs e)
@@ -5198,7 +5198,7 @@ namespace MissionPlanner.GCSViews
                 log.Warn("VIDEO_STOP_STREAMING mavlink command threw", ex);
             }
 
-            StopCameraStream();
+            //StopCameraStream();
         }
 
 public void BUT_DropPL_Click(object sender, EventArgs e)
