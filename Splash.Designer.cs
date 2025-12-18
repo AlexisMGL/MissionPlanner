@@ -41,12 +41,12 @@
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.Black;
-            this.label1.Location = new System.Drawing.Point(400, 20);
+            this.label1.Location = new System.Drawing.Point(300, 20);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(113, 13);
             this.label1.TabIndex = 0;
             this.label1.Tag = "custom";
-            this.label1.Text = "version 1.1 Jul-25 Release";
+            this.label1.Text = "version 1.2 Dec-25 Starlink Release";
             this.label1.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
             // 
             // TXT_version
