@@ -46,7 +46,7 @@
             this.label1.Size = new System.Drawing.Size(113, 13);
             this.label1.TabIndex = 0;
             this.label1.Tag = "custom";
-            this.label1.Text = "version 1.2 Dec-25 Starlink Release";
+            this.label1.Text = "version 1.12 Dec-25 Starlink Release";
             this.label1.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
             // 
             // TXT_version
