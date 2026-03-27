@@ -1873,7 +1873,7 @@ namespace MissionPlanner.GCSViews
 
         void cam_camimage(Image camimage)
         {
-            hud1.bgimage = camimage;
+            MainV2.UpdateVideoFrame(camimage as Bitmap);
         }
 
         private void CB_tuning_CheckedChanged(object sender, EventArgs e)
@@ -3113,6 +3113,7 @@ namespace MissionPlanner.GCSViews
         private void GStreamerStopToolStripMenuItem_Click(object sender, EventArgs e)
         {
             hudGStreamer.Stop();
+            MainV2.HideVideoWindow();
         }
 
         private void HereLinkVideoToolStripMenuItem_Click(object sender, EventArgs e)
@@ -3143,6 +3144,7 @@ namespace MissionPlanner.GCSViews
             }
 
             GCSViews.FlightData.hudGStreamer.Start(url);
+            MainV2.ShowVideoWindow();
         }
 
         private void hud_UserItem(object sender, EventArgs e)
@@ -4800,6 +4802,7 @@ namespace MissionPlanner.GCSViews
                 try
                 {
                     hudGStreamer.Start(url);
+                    MainV2.ShowVideoWindow();
                 }
                 catch (Exception ex)
                 {
@@ -4809,6 +4812,7 @@ namespace MissionPlanner.GCSViews
             else
             {
                 hudGStreamer.Stop();
+                MainV2.HideVideoWindow();
             }
         }
 
@@ -4867,10 +4871,12 @@ namespace MissionPlanner.GCSViews
                 CaptureMJPEG.URL = url;
 
                 CaptureMJPEG.runAsync();
+                MainV2.ShowVideoWindow();
             }
             else
             {
                 CaptureMJPEG.Stop();
+                MainV2.HideVideoWindow();
             }
         }
 
@@ -5073,6 +5079,7 @@ namespace MissionPlanner.GCSViews
                     MainV2.cam.Start();
 
                     MainV2.cam.camimage += new CamImage(cam_camimage);
+                    MainV2.ShowVideoWindow();
                 }
                 catch (Exception ex)
                 {
